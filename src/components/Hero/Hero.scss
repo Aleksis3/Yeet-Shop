@@ -1,0 +1,26 @@
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+    url("../../images/hero.jpg") 0%45% no-repeat;
+  background-size: cover;
+  max-width: 130rem;
+  margin: 0 auto;
+  height: 50rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+
+  &__heading {
+    text-align: center;
+    font-size: 4.4rem;
+    padding-top: 2rem;
+    color: #222;
+    letter-spacing: 0.6px;
+  }
+
+  &__btn {
+    border: 1px red solid;
+    align-self: flex-end;
+    margin: auto 5rem 5rem 0;
+    padding: 3rem;
+  }
+}
