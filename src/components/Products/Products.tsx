@@ -25,20 +25,22 @@ interface Response {
 }
 
 interface IProductsProps {
-  category?: number;
+  category?: string;
 }
 function Products(props: IProductsProps) {
   const [products, setProducts] = useState<Response[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=subject:fiction&filter=paid-ebooks&download=epub&maxResults=25&sort=newest`
+        `https://www.googleapis.com/books/v1/volumes?q=subject:${
+          props.category ? props.category : "fiction"
+        }&filter=paid-ebooks&download=epub&langRestrict=en&maxResults=25&sort=newest`
       );
       const json = await data.json();
       setProducts(json.items);
     };
     fetchData();
-  }, []);
+  }, [props.category]);
   console.log(products);
   const productEls = products?.map((product) => {
     return (

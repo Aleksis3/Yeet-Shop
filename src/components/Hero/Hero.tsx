@@ -5,7 +5,7 @@ function Hero() {
   const sliderSettings = {
     infinite: true,
     arrows: true,
-    speed: 500,
+    speed: 650,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,

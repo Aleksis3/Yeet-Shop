@@ -11,7 +11,7 @@ export interface IProductItemProps {
 function ProductItem(props: IProductItemProps) {
   function shortenTitle(title: string) {
     if (title.length > 25) {
-      return title.substring(0, 30) + "...";
+      return title.substring(0, 28) + "...";
     }
     return title;
   }
@@ -21,7 +21,7 @@ function ProductItem(props: IProductItemProps) {
       <Link to={`/product/${props.id}`}>
         <img className="product-item__img" src={props.img} alt="" />
         <p className="product-item__title">{shortenTitle(props.title)}</p>
-        <p className="product-item__price">{props.price} $</p>
+        <p className="product-item__price">{props.price} PLN</p>
       </Link>
       <button className="product-item__button">Add to basket 🛒</button>
     </article>

@@ -1,6 +1,7 @@
 .hero {
   max-width: 130rem;
-  margin: 0 auto;
+  margin: 2rem auto 0 auto;
+  border-radius: 10px;
   height: 50rem;
   &__slide {
     width: 100%;
@@ -8,13 +9,13 @@
 
     &--1 {
       background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-        url("../../images/hero.jpg") 0%45% no-repeat;
+        url("../../images/books1.jpg") 0%45% no-repeat;
       background-size: cover;
     }
 
     &--2 {
       background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-        url("../../images/chris-reyem-oJoeGnj8OMM-unsplash.jpg") 0%45% no-repeat;
+        url("../../images/books2.jpg") 0%45% no-repeat;
       background-size: cover;
     }
   }
