@@ -1,0 +1,29 @@
+.product {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 1rem;
+  max-width: 130rem;
+  margin: 8rem auto 0 auto;
+  font-size: 2rem;
+  background-color: rgb(243, 240, 230);
+  border: 1px #444 solid;
+
+  &__img {
+    border-radius: 5px;
+    border-right: 1px #444 solid;
+    // width: 35rem;
+    height: 40rem;
+    object-fit: contain;
+  }
+
+  &__title {
+    font-size: 3rem;
+  }
+
+  &__reviews {
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: space-between;
+  }
+}

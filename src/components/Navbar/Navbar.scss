@@ -1,0 +1,25 @@
+.nav {
+  background-color: #444;
+  color: #fff;
+  height: 3.3rem;
+  font-size: 1.2rem;
+  &__list {
+    display: flex;
+    height: 100%;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  &__item {
+    padding: 1rem;
+    width: 100%;
+    text-align: center;
+
+    &:hover {
+      background-color: #ddd;
+      color: #222;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,26 +1,64 @@
 .hero {
-  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-    url("../../images/hero.jpg") 0%45% no-repeat;
-  background-size: cover;
   max-width: 130rem;
   margin: 0 auto;
   height: 50rem;
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
+  &__slide {
+    width: 100%;
+    height: 50rem;
 
-  &__heading {
-    text-align: center;
-    font-size: 4.4rem;
-    padding-top: 2rem;
-    color: #222;
-    letter-spacing: 0.6px;
-  }
+    &--1 {
+      background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+        url("../../images/hero.jpg") 0%45% no-repeat;
+      background-size: cover;
+    }
 
-  &__btn {
-    border: 1px red solid;
-    align-self: flex-end;
-    margin: auto 5rem 5rem 0;
-    padding: 3rem;
+    &--2 {
+      background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+        url("../../images/chris-reyem-oJoeGnj8OMM-unsplash.jpg") 0%45% no-repeat;
+      background-size: cover;
+    }
   }
 }
+
+// .hero {
+//   max-width: 130rem;
+//   margin: 0 auto;
+//   height: 50rem;
+//   position: relative;
+//   overflow: hidden;
+//   display: flex;
+//   flex-direction: column;
+//   border-radius: 10px;
+
+//   &__slide {
+//     position: absolute;
+//     width: 100%;
+//     height: 100%;
+//     z-index: -1;
+
+//     &--1 {
+// background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+//   url("../../images/hero.jpg") 0%45% no-repeat;
+//       background-size: cover;
+//     }
+
+//     &--2 {
+//       background: url("https://www.w3docs.com/uploads/media/default/0001/03/b87b29b6ca67b64b76651037dc16f5a46e73b42a.jpeg");
+//     }
+//   }
+
+//   &__heading {
+//     text-align: center;
+//     font-size: 4.4rem;
+//     padding-top: 2rem;
+//     color: #222;
+//     letter-spacing: 0.6px;
+//   }
+
+//   &__btn {
+//     border: 1px red solid;
+//     align-self: flex-end;
+//     margin: auto 5rem 5rem 0;
+//     padding: 3rem;
+//   }
+// }
