@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { IProduct } from "../../types/types";
 import ProductItem from "./Product/ProductItem";
 import "./Products.scss";
 
@@ -26,18 +25,28 @@ interface Response {
 
 interface IProductsProps {
   category?: string;
+  title: string;
 }
 function Products(props: IProductsProps) {
   const [products, setProducts] = useState<Response[]>([]);
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=subject:${
-          props.category ? props.category : "fiction"
-        }&filter=paid-ebooks&download=epub&langRestrict=en&maxResults=25&sort=newest`
-      );
-      const json = await data.json();
-      setProducts(json.items);
+      try {
+        const data = await fetch(
+          `https://www.googleapis.com/books/v1/volumes?q=subject:${
+            props.category ? props.category : "fiction"
+          }&filter=paid-ebooks&download=epub&langRestrict=en&maxResults=25&sort=newest`
+        );
+        if (!data.ok) {
+          const e = await data.json();
+          throw e;
+        }
+        const json = await data.json();
+        setProducts(json.items);
+      } catch (e) {
+        console.log(e);
+        console.error(e);
+      }
     };
     fetchData();
   }, [props.category]);
@@ -56,7 +65,7 @@ function Products(props: IProductsProps) {
 
   return (
     <section className="products">
-      <h2 className="products__heading">Newly added</h2>
+      <h2 className="products__heading">{props.title}</h2>
       <div className="products__grid">{productEls}</div>
     </section>
   );

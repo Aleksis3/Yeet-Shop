@@ -5,7 +5,7 @@ function Main() {
   return (
     <>
       <Hero />
-      <Products />
+      <Products title="Newly added" />
     </>
   );
 }

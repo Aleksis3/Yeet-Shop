@@ -29,11 +29,19 @@ function Product() {
   console.log(product);
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetch(
-        `https://www.googleapis.com/books/v1/volumes/${id}`
-      );
-      const json = await data.json();
-      setProduct(json);
+      try {
+        const data = await fetch(
+          `https://www.googleapis.com/books/v1/volumes/${id}`
+        );
+        if (!data.ok) {
+          const e = await data.json();
+          throw e;
+        }
+        const json = await data.json();
+        setProduct(json);
+      } catch (e) {
+        console.log(e);
+      }
     };
     fetchData().catch(console.error);
   }, []);
@@ -51,7 +59,13 @@ function Product() {
       </div>
       <div className="product__right">
         <p className="product__title">{product?.volumeInfo.title}</p>
-        <p>{product?.volumeInfo.description}</p>
+        {product && (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: product.volumeInfo.description,
+            }}
+          />
+        )}
       </div>
       <div className="product__reviews">
         <p>Want to share own thoughts about the book?</p>
