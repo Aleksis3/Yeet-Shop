@@ -1,22 +1,28 @@
 import React, { useContext, useState } from "react";
 import "./Header.scss";
-import { getAuth, signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
 import SignUp from "../SignUp/SignUp";
-import { logout } from "../../redux/auth";
+import { logout, selectUser } from "../../redux/authSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { selectCartItems } from "../../redux/cartSlice";
+import Modal from "../Modal/Modal";
+import Cart from "../Cart/Cart";
 
 function Header() {
-  const [isLoginOpen, setIsLogInOpen] = useState(false);
-  const [isSignUpOpen, setIsSignUpOpen] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.auth);
-  console.log(user);
+  const user = useAppSelector(selectUser);
+  const cartItems = useAppSelector(selectCartItems);
+  console.log(cartItems);
 
-  const closeSignUp = () => setIsSignUpOpen(false);
+  const closeSignUp = () => "d";
 
-  // const user = useContext(AuthContext);
+  const openModal = (feature: string) => {
+    setModalContent(feature);
+    setShowModal(true);
+  };
 
   return (
     <header className="header">
@@ -24,21 +30,28 @@ function Header() {
         <p>YeetShop</p>
       </Link>
       <button className="header__favs">Favourites ✰</button>
-      {!user.length ? (
-        <button className="header__login" onClick={(e) => setIsLogInOpen(true)}>
+      <button onClick={() => openModal("cart")}>Cart {cartItems.length}</button>
+      {showModal && modalContent === "cart" && (
+        <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
+          <Cart />
+        </Modal>
+      )}
+      {!user ? (
+        <button className="header__login" onClick={(e) => "apy"}>
           Log In
         </button>
       ) : (
         <button onClick={() => dispatch(logout())}>Log out</button>
       )}
 
-      <button
-        onClick={(e) => setIsSignUpOpen(true)}
-        className="header__register"
-      >
+      <button onClick={(e) => openModal("signup")} className="header__register">
         Register
       </button>
-      {isSignUpOpen && <SignUp handleClose={closeSignUp} />}
+      {showModal && modalContent === "signup" && (
+        <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
+          <SignUp handleClose={() => setShowModal(false)} />
+        </Modal>
+      )}
     </header>
   );
 }

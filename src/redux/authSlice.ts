@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-
+import { RootState } from "./store";
 import { auth } from "../firebase/firebase";
 import { User } from "firebase/auth";
 
@@ -16,22 +16,22 @@ interface authState {
 interface userData {
   email: string;
   password: string;
-  name?: string;
+  login?: string;
 }
 
 // Define the initial state using that type
-const initialState = <any>{};
+const initialState = <any>{ uid: null };
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     register: (state, action) => {
-      return action.payload;
+      state.auth.uid = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(signup.fulfilled, (state, action) => {
-      return action.payload;
+      state.uid = action.payload;
     });
     builder.addCase(logout.fulfilled, (state, action) => {
       return initialState;
@@ -54,6 +54,7 @@ export const signup = createAsyncThunk(
       })
       .catch((error) => {
         console.log(error.message);
+        alert(error.message);
       });
     const data = await promise;
     return data;
@@ -83,5 +84,7 @@ export const logout = createAsyncThunk("auth/logout", async () => {
     console.log(error.message);
   });
 });
+
+export const selectUser = (state: RootState) => state.auth.uid;
 
 export default authSlice.reducer;
