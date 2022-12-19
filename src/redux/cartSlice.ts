@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 
 interface CartState {
-  items: { id: number; name: string; price: number; quantity: number }[];
+  items: { id: string; title: string; price: number; quantity: number }[];
   totalPrice: number;
   totalCount: number;
 }

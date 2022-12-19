@@ -8,7 +8,6 @@ function Main() {
   return (
     <>
       <Hero />
-      <Cart />
       <Products title="Newly added" />
     </>
   );

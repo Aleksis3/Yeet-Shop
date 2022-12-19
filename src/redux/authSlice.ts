@@ -33,6 +33,9 @@ export const authSlice = createSlice({
     builder.addCase(signup.fulfilled, (state, action) => {
       state.uid = action.payload;
     });
+    builder.addCase(signin.fulfilled, (state, action) => {
+      state.uid = action.payload;
+    });
     builder.addCase(logout.fulfilled, (state, action) => {
       return initialState;
     });
@@ -63,19 +66,20 @@ export const signup = createAsyncThunk(
 
 export const signin = createAsyncThunk(
   "auth/signin",
-  async (signinCredentials: userData, { rejectWithValue }) => {
+  async (signinCredentials: userData) => {
     const { email, password } = signinCredentials;
-    await signInWithEmailAndPassword(auth, email, password)
+    const promise = signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         console.log(userCredential.user);
-        return userCredential.user;
+        return userCredential.user.uid;
       })
       .catch((error) => {
         console.log(error.message);
-        const errorMessage = error.message;
-        return rejectWithValue(errorMessage);
+        alert(error.message);
       });
+    const data = await promise;
+    return data;
   }
 );
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { IProduct } from "../../types/types";
+// import { IProduct } from "../../types/types";
 import "./Product.scss";
 
 interface Response {

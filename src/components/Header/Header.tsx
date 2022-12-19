@@ -7,6 +7,7 @@ import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { selectCartItems } from "../../redux/cartSlice";
 import Modal from "../Modal/Modal";
 import Cart from "../Cart/Cart";
+import LogIn from "../LogIn/LogIn";
 
 function Header() {
   const [modalContent, setModalContent] = useState("");
@@ -16,8 +17,6 @@ function Header() {
   const user = useAppSelector(selectUser);
   const cartItems = useAppSelector(selectCartItems);
   console.log(cartItems);
-
-  const closeSignUp = () => "d";
 
   const openModal = (feature: string) => {
     setModalContent(feature);
@@ -30,23 +29,37 @@ function Header() {
         <p>YeetShop</p>
       </Link>
       <button className="header__favs">Favourites ✰</button>
-      <button onClick={() => openModal("cart")}>Cart {cartItems.length}</button>
+      {user && (
+        <button onClick={() => openModal("cart")}>
+          Cart {cartItems.length}
+        </button>
+      )}
       {showModal && modalContent === "cart" && (
         <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
           <Cart />
         </Modal>
       )}
       {!user ? (
-        <button className="header__login" onClick={(e) => "apy"}>
+        <button className="header__login" onClick={() => openModal("login")}>
           Log In
         </button>
       ) : (
         <button onClick={() => dispatch(logout())}>Log out</button>
       )}
+      {showModal && modalContent === "login" && (
+        <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
+          <LogIn handleClose={() => setShowModal(false)} />
+        </Modal>
+      )}
 
-      <button onClick={(e) => openModal("signup")} className="header__register">
-        Register
-      </button>
+      {!user && (
+        <button
+          onClick={(e) => openModal("signup")}
+          className="header__register"
+        >
+          Register
+        </button>
+      )}
       {showModal && modalContent === "signup" && (
         <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
           <SignUp handleClose={() => setShowModal(false)} />

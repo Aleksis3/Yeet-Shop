@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProductItem from "./Product/ProductItem";
 import "./Products.scss";
 
@@ -50,14 +50,16 @@ function Products(props: IProductsProps) {
     };
     fetchData();
   }, [props.category]);
+
   console.log(products);
+
   const productEls = products?.map((product) => {
     return (
       <ProductItem
         title={product.volumeInfo.title}
         key={product.id}
         id={product.id}
-        price={product.saleInfo.listPrice.amount}
+        price={product.saleInfo?.listPrice?.amount}
         img={`${product.volumeInfo.imageLinks.thumbnail}`}
       />
     );
