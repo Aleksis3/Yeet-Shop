@@ -44,7 +44,7 @@ function Product() {
       }
     };
     fetchData().catch(console.error);
-  }, []);
+  }, [id]);
 
   return (
     <div className="product">

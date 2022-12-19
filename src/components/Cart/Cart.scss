@@ -1,0 +1,12 @@
+.cart__summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  font-size: 1.8rem;
+}
+
+.cart__price-total {
+  font-weight: bold;
+  font-size: 1.7rem;
+}

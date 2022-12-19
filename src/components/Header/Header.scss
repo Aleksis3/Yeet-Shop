@@ -4,15 +4,15 @@
   color: #eee;
   display: flex;
   align-items: center;
-}
 
-.header__logo {
-  font-size: 2.6rem;
-  cursor: pointer;
-  font-size: bold;
-  margin: 0 auto 0 4rem;
-}
+  &__logo {
+    font-size: 2.6rem;
+    cursor: pointer;
+    font-size: bold;
+    margin: 0 auto 0 4rem;
+  }
 
-.header__favs {
-  margin-right: 5rem;
+  &__favs {
+    margin-right: 5rem;
+  }
 }

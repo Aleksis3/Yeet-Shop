@@ -34,7 +34,12 @@ function ProductItem(props: IProductItemProps) {
       <button
         onClick={() =>
           dispatch(
-            addToCart({ id: props.id, title: props.title, price: props.price })
+            addToCart({
+              id: props.id,
+              title: props.title,
+              price: props.price,
+              img: props.img,
+            })
           )
         }
         className="product-item__button"

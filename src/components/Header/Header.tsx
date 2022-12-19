@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
+import { useState } from "react";
 import "./Header.scss";
 import { Link } from "react-router-dom";
 import SignUp from "../SignUp/SignUp";
 import { logout, selectUser } from "../../redux/authSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { selectCartItems } from "../../redux/cartSlice";
+import { selectCartItems, selectCartTotal } from "../../redux/cartSlice";
 import Modal from "../Modal/Modal";
 import Cart from "../Cart/Cart";
 import LogIn from "../LogIn/LogIn";
@@ -16,6 +16,7 @@ function Header() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const cartItems = useAppSelector(selectCartItems);
+  const cartItemsTotal = useAppSelector(selectCartTotal);
   console.log(cartItems);
 
   const openModal = (feature: string) => {
@@ -30,13 +31,11 @@ function Header() {
       </Link>
       <button className="header__favs">Favourites ✰</button>
       {user && (
-        <button onClick={() => openModal("cart")}>
-          Cart {cartItems.length}
-        </button>
+        <button onClick={() => openModal("cart")}>Cart {cartItemsTotal}</button>
       )}
       {showModal && modalContent === "cart" && (
         <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
-          <Cart />
+          <Cart closeModal={() => setShowModal(false)} />
         </Modal>
       )}
       {!user ? (
