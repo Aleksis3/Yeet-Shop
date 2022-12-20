@@ -25,30 +25,6 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addToCart: (state, action) => {
-      const itemIndex = state.items.findIndex(
-        (obj) => obj.id === action.payload.id
-      );
-      const currItem = state.items[itemIndex];
-      if (currItem) {
-        currItem.quantity += 1;
-        state.items[itemIndex] = currItem;
-      } else {
-        action.payload.quantity = 1;
-        state.items.push(action.payload);
-      }
-      state.totalCount += 1;
-    },
-    removeFromCart: (state, action) => {
-      const { id } = action.payload;
-      const itemIndex = state.items.findIndex((obj) => obj.id === id);
-      const currItem = state.items[itemIndex];
-      if (currItem.quantity > 1) {
-        state.items[itemIndex].quantity -= 1;
-      } else {
-        state.items.splice(itemIndex, 1);
-      }
-    },
     fetchCart: (state, action) => {
       console.log(action);
       state.items = action.payload;
@@ -110,7 +86,7 @@ export const removeWithThunk = createAsyncThunk(
   }
 );
 
-export const { addToCart, fetchCart } = cartSlice.actions;
+export const { fetchCart } = cartSlice.actions;
 
 export const selectCartItems = (state: RootState) => state.cart.items;
 

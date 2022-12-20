@@ -1,6 +1,6 @@
 import "./ProductItem.scss";
 import { Link } from "react-router-dom";
-import { addToCart, addWithThunk } from "../../../redux/cartSlice";
+import { addWithThunk } from "../../../redux/cartSlice";
 import { useAppDispatch } from "../../../redux/hooks";
 
 export interface IProductItemProps {
@@ -13,9 +13,6 @@ export interface IProductItemProps {
 
 function ProductItem(props: IProductItemProps) {
   const dispatch = useAppDispatch();
-
-  // const handleClick =
-  // );
 
   function shortenTitle(title: string) {
     if (title.length > 25) {
@@ -32,24 +29,15 @@ function ProductItem(props: IProductItemProps) {
         <p className="product-item__price">{props.price} PLN</p>
       </Link>
       <button
-        onClick={
-          () =>
-            dispatch(
-              addWithThunk({
-                id: props.id,
-                title: props.title,
-                img: props.img,
-                price: props.price,
-              })
-            )
-          // dispatch(
-          //   addToCart({
-          //     id: props.id,
-          //     title: props.title,
-          //     price: props.price,
-          //     img: props.img,
-          //   })
-          // )
+        onClick={() =>
+          dispatch(
+            addWithThunk({
+              id: props.id,
+              title: props.title,
+              img: props.img,
+              price: props.price,
+            })
+          )
         }
         className="product-item__button"
       >
