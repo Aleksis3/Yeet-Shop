@@ -1,4 +1,8 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { addWithThunk, removeWithThunk } from "../../redux/cartSlice";
+import { useAppDispatch } from "../../redux/hooks";
 import "./CartItem.scss";
 
 export interface ICartItemProps {
@@ -11,6 +15,8 @@ export interface ICartItemProps {
 }
 
 function CartItem(props: ICartItemProps) {
+  const dispatch = useAppDispatch();
+
   return (
     <div className="cart-item" key={props.id}>
       <div className="cart-item__left">
@@ -22,7 +28,22 @@ function CartItem(props: ICartItemProps) {
         </Link>
         <div className="cart-item__pricing-details">
           <p>{props.price} PLN</p>
-          <p>x {props.quantity}</p>
+          <div className="cart-item__quantity number-input">
+            <button
+              onClick={() => dispatch(removeWithThunk(props.id))}
+            ></button>
+            <input
+              className="quantity"
+              min="0"
+              name="quantity"
+              value={props.quantity}
+              type="number"
+            ></input>
+            <button
+              className="plus"
+              onClick={() => dispatch(addWithThunk({ ...props }))}
+            ></button>
+          </div>
         </div>
       </div>
     </div>

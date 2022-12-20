@@ -1,12 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {
-  collection,
-  doc,
-  increment,
-  onSnapshot,
-  query,
-  setDoc,
-} from "firebase/firestore";
+import { deleteDoc, doc, getDoc, increment, setDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { RootState } from "./store";
 
@@ -66,10 +59,12 @@ export const cartSlice = createSlice({
       alert(action.error.message);
       console.log(action.error.message);
     });
+    builder.addCase(removeWithThunk.rejected, (state, action) => {
+      alert(action.error.message);
+      console.log(action.error.message);
+    });
   },
 });
-
-// addDoc(collection(db, `$users/${user.uid}/cart`), action.payload);
 
 export const addWithThunk = createAsyncThunk(
   "auth/addWithThunk",
@@ -84,10 +79,34 @@ export const addWithThunk = createAsyncThunk(
         title,
         img,
         price,
-        amount: increment(1),
+        quantity: increment(1),
       },
       { merge: true }
     );
+  }
+);
+
+export const removeWithThunk = createAsyncThunk(
+  "auth/removeWithThunk",
+  async (id: string, { getState }) => {
+    const state = getState() as RootState;
+    const user = state.auth.uid;
+    const docRef = doc(db, "test", `${user}`, "cart", id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const quantity = docSnap.data().quantity;
+      if (quantity > 1) {
+        await setDoc(
+          docRef,
+          {
+            quantity: increment(-1),
+          },
+          { merge: true }
+        );
+      } else {
+        await deleteDoc(docRef);
+      }
+    }
   }
 );
 
@@ -102,7 +121,7 @@ export const selectItemsCount = (state: RootState) =>
 
 export const selectTotalPrice = (state: RootState) =>
   state.cart.items.reduce((total, product) => {
-    return total + product.price;
+    return total + product.price * product.quantity;
   }, 0);
 
 export default cartSlice.reducer;

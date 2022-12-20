@@ -5,6 +5,7 @@
   left: 0;
   top: 0;
   width: 100%; /* Full width */
+
   height: 100%; /* Full height */
   color: black;
   background-color: rgb(0, 0, 0); /* Fallback color */
@@ -14,8 +15,10 @@
 /* Modal Content/Box */
 .modal-content {
   max-height: 80vh;
+  max-width: 90vw;
   margin-top: 8rem;
   overflow: auto;
+  border: 2px #000 solid;
 }
 /* The Close Button */
 .close {
