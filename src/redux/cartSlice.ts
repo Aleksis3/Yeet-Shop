@@ -1,8 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addDoc, collection, doc, increment, setDoc } from "firebase/firestore";
-import { resolve } from "path";
+import {
+  collection,
+  doc,
+  increment,
+  onSnapshot,
+  query,
+  setDoc,
+} from "firebase/firestore";
 import { db } from "../firebase/firebase";
-import { authState } from "./authSlice";
 import { RootState } from "./store";
 
 interface CartState {
@@ -51,6 +56,10 @@ export const cartSlice = createSlice({
         state.items.splice(itemIndex, 1);
       }
     },
+    fetchCart: (state, action) => {
+      console.log(action);
+      state.items = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(addWithThunk.rejected, (state, action) => {
@@ -69,7 +78,7 @@ export const addWithThunk = createAsyncThunk(
     const state = getState() as RootState;
     const user = state.auth.uid;
     await setDoc(
-      doc(db, "usersss", user, "cart", id),
+      doc(db, "test", user, "cart", id),
       {
         id,
         title,
@@ -82,7 +91,7 @@ export const addWithThunk = createAsyncThunk(
   }
 );
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, fetchCart } = cartSlice.actions;
 
 export const selectCartItems = (state: RootState) => state.cart.items;
 

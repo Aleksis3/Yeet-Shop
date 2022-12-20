@@ -10,3 +10,11 @@ export interface IProduct {
   price: number;
   title: string;
 }
+
+export interface IBook {
+  id: number;
+  title: string;
+  description?: string;
+  img?: string;
+  price?: number;
+}
