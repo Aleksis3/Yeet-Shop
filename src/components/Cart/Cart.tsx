@@ -1,7 +1,7 @@
 import "./Cart.scss";
 import CartItem from "./CartItem";
 import React, { useRef, useLayoutEffect, useState } from "react";
-import { selectCartItems } from "../../redux/cartSlice";
+import { selectCartItems, selectTotalPrice } from "../../redux/cartSlice";
 import { useAppSelector } from "../../redux/hooks";
 import { useLocation } from "react-router-dom";
 interface ICartProps {
@@ -9,6 +9,7 @@ interface ICartProps {
 }
 function Cart(props: ICartProps) {
   const books = useAppSelector(selectCartItems);
+  const totalPrice = useAppSelector(selectTotalPrice);
 
   const cartItems = books.map((book) => (
     <CartItem
@@ -24,7 +25,7 @@ function Cart(props: ICartProps) {
       <div className="cart__cart-items">{cartItems}</div>
       <div className="cart__summary">
         <p>
-          Total: <span className="cart__price-total">50.00 $</span>
+          Total: <span className="cart__price-total">{totalPrice} PLN</span>
         </p>
         <button className="cart__btn">To Checkout</button>
       </div>

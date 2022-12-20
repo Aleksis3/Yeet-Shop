@@ -1,9 +1,7 @@
 .cart-item {
   display: flex;
   gap: 5rem;
-  margin-left: 5rem;
-  margin-bottom: 1rem;
-
+  margin: 0 0 1rem 5rem;
   &__left {
     justify-content: center;
     display: flex;
@@ -21,13 +19,14 @@
   }
 
   &__title {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     color: navy;
   }
 
   &__pricing-details {
     display: flex;
     gap: 1.5rem;
+    font-size: 1.4rem;
     margin-top: 0.7rem;
   }
 }

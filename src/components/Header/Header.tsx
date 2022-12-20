@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import SignUp from "../SignUp/SignUp";
 import { logout, selectUser } from "../../redux/authSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { selectCartItems, selectCartTotal } from "../../redux/cartSlice";
+import { selectCartItems, selectItemsCount } from "../../redux/cartSlice";
 import Modal from "../Modal/Modal";
 import Cart from "../Cart/Cart";
 import LogIn from "../LogIn/LogIn";
@@ -16,7 +16,7 @@ function Header() {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const cartItems = useAppSelector(selectCartItems);
-  const cartItemsTotal = useAppSelector(selectCartTotal);
+  const cartItemsCount = useAppSelector(selectItemsCount);
   console.log(cartItems);
 
   const openModal = (feature: string) => {
@@ -31,7 +31,7 @@ function Header() {
       </Link>
       <button className="header__favs">Favourites ✰</button>
       {user && (
-        <button onClick={() => openModal("cart")}>Cart {cartItemsTotal}</button>
+        <button onClick={() => openModal("cart")}>Cart {cartItemsCount}</button>
       )}
       {showModal && modalContent === "cart" && (
         <Modal showModal={showModal} closeModal={() => setShowModal(false)}>

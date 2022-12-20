@@ -5,12 +5,14 @@ import {
   signOut,
 } from "firebase/auth";
 import { RootState } from "./store";
-import { auth } from "../firebase/firebase";
+import { auth, db } from "../firebase/firebase";
 import { User } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 // Define a type for the slice state
-interface authState {
-  user: User;
+export interface authState {
+  // user: User;
+  uid: string;
 }
 
 interface userData {
@@ -59,7 +61,16 @@ export const signup = createAsyncThunk(
         console.log(error.message);
         alert(error.message);
       });
+
     const data = await promise;
+
+    // if (data) {
+    //   await setDoc(doc(db, "users", data), {
+    //     uid: data,
+    //     email,
+    //   });
+    // }
+
     return data;
   }
 );
