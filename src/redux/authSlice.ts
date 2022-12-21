@@ -5,9 +5,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { RootState } from "./store";
-import { auth, db } from "../firebase/firebase";
-import { User } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { auth } from "../firebase/firebase";
 
 // Define a type for the slice state
 export interface authState {
@@ -44,33 +42,21 @@ export const authSlice = createSlice({
   },
 });
 
-// export const {signup } = counterSlice.actions;
-
-// Other code such as selectors can use the imported `RootState` type
-// export const selectCount = (state: RootState) => state.counter.value;
-
 export const signup = createAsyncThunk(
   "auth/signup",
   async (registerCredentials: userData) => {
     const { email, password } = registerCredentials;
     const promise = createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        return userCredential.user.uid;
+        const user = userCredential.user.uid;
+        localStorage.setItem("user", JSON.stringify(user));
+        return user;
       })
       .catch((error) => {
         console.log(error.message);
         alert(error.message);
       });
-
     const data = await promise;
-
-    // if (data) {
-    //   await setDoc(doc(db, "users", data), {
-    //     uid: data,
-    //     email,
-    //   });
-    // }
-
     return data;
   }
 );
@@ -81,9 +67,9 @@ export const signin = createAsyncThunk(
     const { email, password } = signinCredentials;
     const promise = signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
+        const user = userCredential.user.uid;
         console.log(userCredential.user);
-        return userCredential.user.uid;
+        return user;
       })
       .catch((error) => {
         console.log(error.message);

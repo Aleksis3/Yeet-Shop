@@ -13,10 +13,19 @@
   font-family: "Libre Baskerville", serif;
   // font-family: "Roboto Slab", serif;
 
+  @media only screen and (max-width: 50rem) {
+    margin-top: 0.8rem;
+  }
+
   &__img {
     height: 30rem;
+
+    width: 100%;
     border: 1px #444 solid;
-    padding-bottom: 1px;
+
+    @media only screen and (max-width: 50rem) {
+      height: 26rem;
+    }
   }
 
   &__title {

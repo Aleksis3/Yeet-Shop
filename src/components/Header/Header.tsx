@@ -29,7 +29,7 @@ function Header() {
       <Link className="header__logo" to="/">
         <p>YeetShop</p>
       </Link>
-      <button className="header__favs">Favourites ✰</button>
+      <button className="header__favs">Wishes ✰</button>
       {user && (
         <button onClick={() => openModal("cart")}>Cart {cartItemsCount}</button>
       )}

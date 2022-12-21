@@ -91,3 +91,9 @@ input[type="number"]::-webkit-outer-spin-button {
   font-weight: bold;
   text-align: center;
 }
+
+@media only screen and (max-width: 37.5rem) {
+  html {
+    font-size: 53%;
+  }
+}

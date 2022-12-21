@@ -5,8 +5,7 @@ import Footer from "./components/Footer/Footer";
 import { Routes, Route } from "react-router-dom";
 import Main from "./pages/Main/Main";
 import Product from "./pages/Product/Product";
-import Category from "./pages/Category/Category";
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "./firebase/firebase";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
@@ -19,11 +18,10 @@ function App() {
   const dispatch = useAppDispatch();
   const collectionRef = collection(db, "test", `${user}`, "cart");
 
-  const q = query(collectionRef);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        onSnapshot(q, (snapshot: any) => {
+        onSnapshot(collectionRef, (snapshot: any) => {
           const querySnapshot = snapshot.docs;
           const bookData: IBook[] = [];
           querySnapshot.forEach((doc: any) => bookData.push(doc.data()));
@@ -37,6 +35,7 @@ function App() {
         }
       }
     };
+
     fetchData();
   }, [user]);
 
@@ -45,9 +44,10 @@ function App() {
       <Header />
       <Navbar />
       <Routes>
-        <Route path="/" element={<Main />} />
+        {["/", "/category/:category"].map((path) => (
+          <Route path={path} element={<Main />} />
+        ))}
         <Route path="/product/:id" element={<Product />} />
-        <Route path="/category/:category" element={<Category />}></Route>
       </Routes>
       <Footer />
     </div>
