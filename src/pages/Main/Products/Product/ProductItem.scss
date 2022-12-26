@@ -1,10 +1,8 @@
 .product-item {
   max-width: 80%;
   margin: 0 auto;
-  // background-color: #fff;
 
   background-color: #e6f1ff;
-
   cursor: pointer;
   color: #222;
   overflow: hidden;
@@ -24,7 +22,7 @@
     border: 1px #444 solid;
 
     @media only screen and (max-width: 50rem) {
-      height: 26rem;
+      height: 24rem;
     }
   }
 

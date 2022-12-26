@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { addWithThunk } from "../../redux/cartSlice";
+import { useAppDispatch } from "../../redux/hooks";
 // import { IProduct } from "../../types/types";
 import "./Product.scss";
 
@@ -9,24 +11,36 @@ interface Response {
     title: string;
     subtitle: string;
     description: string;
+    publisher: string;
+    pageCount: number;
+    publishedDate: string;
+    authors: string[];
+    categories: string[];
     imageLinks: {
       thumbnail: string;
     };
   };
-  // industryIdentifers: {
-  //   imageLinks: any[];
-  // };
-  saleInfo?: {
+  saleInfo: {
     listPrice: {
       amount: number;
     };
   };
-  authors: string[];
 }
+
 function Product() {
   let { id } = useParams();
   const [product, setProduct] = useState<Response>();
-  console.log(product);
+  const dispatch = useAppDispatch();
+  const handleAdd = () =>
+    dispatch(
+      addWithThunk({
+        id,
+        title: product?.volumeInfo.title,
+        price: product?.saleInfo.listPrice.amount,
+        img: product?.volumeInfo.imageLinks.thumbnail,
+      })
+    );
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,40 +53,67 @@ function Product() {
         }
         const json = await data.json();
         setProduct(json);
-      } catch (e) {
+      } catch (e: any) {
+        alert(e.error.message);
         console.log(e);
       }
     };
-    fetchData().catch(console.error);
+    fetchData();
   }, [id]);
+
+  let categories = product?.volumeInfo.categories.map((category) => (
+    <p>
+      {category},<br />
+    </p>
+  ));
 
   return (
     <div className="product">
-      <div className="product__left">
+      <div className="product__img-container">
         <img
           className="product__img"
           src={`${product?.volumeInfo.imageLinks.thumbnail}`}
           alt=""
         />
-
-        {/* <p>{product?.category?.name}</p> */}
       </div>
-      <div className="product__right">
-        <p className="product__title">{product?.volumeInfo.title}</p>
-        {product && (
+      <div className="product__details">
+        <div className="product__identifiers">
+          <p className="product__title">{product?.volumeInfo.title},</p>
+          <p className="product__author">
+            {product?.volumeInfo?.authors?.splice(0, 3).join(", ").toString() ||
+              "Author Unknown"}
+          </p>
+        </div>
+        <p>Publisher: {product?.volumeInfo.publisher}</p>
+        <p>Year: {product?.volumeInfo.publishedDate}</p>
+        <p className="product__categories-header">Categories: </p>
+        {categories}
+        <div className="product__buy-container">
+          <p>
+            Price: <b>{product?.saleInfo.listPrice.amount} PLN</b>
+          </p>
+          <button className="product__buy-btn" onClick={handleAdd}>
+            Add to cart
+          </button>
+        </div>
+      </div>
+      {product && (
+        <div className="product__desc-container">
+          <h2 className="product__desc-header">Description:</h2>
           <div
+            className="product__desc"
             dangerouslySetInnerHTML={{
               __html: product.volumeInfo.description,
             }}
           />
-        )}
-      </div>
-      <div className="product__reviews">
-        <p>Want to share own thoughts about the book?</p>
-        <button>Leave a rating!</button>
-      </div>
+        </div>
+      )}
     </div>
   );
 }
 
+//  {/* <div className="product__reviews">
+//         <p>Want to share own thoughts about the book?</p>
+//         <button>Leave a rating!</button>
+//       </div> */}
 export default Product;

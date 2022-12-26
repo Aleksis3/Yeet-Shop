@@ -8,6 +8,7 @@ import { selectCartItems, selectItemsCount } from "../../redux/cartSlice";
 import Modal from "../Modal/Modal";
 import Cart from "../Cart/Cart";
 import LogIn from "../LogIn/LogIn";
+import Button from "../Button/Button";
 
 function Header() {
   const [modalContent, setModalContent] = useState("");
@@ -29,21 +30,20 @@ function Header() {
       <Link className="header__logo" to="/">
         <p>YeetShop</p>
       </Link>
-      <button className="header__favs">Wishes ✰</button>
+      <Button className="header__favs">Wishes ✰</Button>
       {user && (
-        <button onClick={() => openModal("cart")}>Cart {cartItemsCount}</button>
+        <Button onClick={() => openModal("cart")}>Cart {cartItemsCount}</Button>
       )}
       {showModal && modalContent === "cart" && (
         <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
           <Cart closeModal={() => setShowModal(false)} />
         </Modal>
       )}
+
       {!user ? (
-        <button className="header__login" onClick={() => openModal("login")}>
-          Log In
-        </button>
+        <Button onClick={() => openModal("login")}>Log In</Button>
       ) : (
-        <button onClick={() => dispatch(logout())}>Log out</button>
+        <Button onClick={() => dispatch(logout())}>Log out</Button>
       )}
       {showModal && modalContent === "login" && (
         <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
@@ -52,12 +52,12 @@ function Header() {
       )}
 
       {!user && (
-        <button
-          onClick={(e) => openModal("signup")}
-          className="header__register"
+        <Button
+          onClick={() => openModal("signup")}
+          // className="header__register"
         >
           Register
-        </button>
+        </Button>
       )}
       {showModal && modalContent === "signup" && (
         <Modal showModal={showModal} closeModal={() => setShowModal(false)}>

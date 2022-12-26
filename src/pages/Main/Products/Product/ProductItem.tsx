@@ -1,7 +1,7 @@
 import "./ProductItem.scss";
 import { Link } from "react-router-dom";
-import { addWithThunk } from "../../../redux/cartSlice";
-import { useAppDispatch } from "../../../redux/hooks";
+import { addWithThunk } from "../../../../redux/cartSlice";
+import { useAppDispatch } from "../../../../redux/hooks";
 
 export interface IProductItemProps {
   id: number;

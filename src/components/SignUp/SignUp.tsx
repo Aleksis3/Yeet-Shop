@@ -38,10 +38,12 @@ function SignUp(props: ISignUp) {
 
   return (
     <div>
-      <h1>Create a new account</h1>
+      <h1 className="signUp__form-title">Create a new account</h1>
       <form className="signUp__form" action="">
         <div className="signUp__formEl-wrapper">
-          <label htmlFor="login">Login</label>
+          <label htmlFor="login" className="signUp__form-label">
+            Login
+          </label>
           <input
             id="login"
             type="text"
@@ -50,7 +52,9 @@ function SignUp(props: ISignUp) {
           />
         </div>
         <div className="signUp__formEl-wrapper">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email" className="signUp__form-label">
+            Email
+          </label>
           <input
             id="email"
             type="email"
@@ -59,7 +63,9 @@ function SignUp(props: ISignUp) {
           />
         </div>
         <div className="signUp__formEl-wrapper">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password" className="signUp__form-label">
+            Password
+          </label>
           <input
             id="password"
             type="password"

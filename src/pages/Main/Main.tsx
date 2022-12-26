@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import Hero from "../../components/Hero/Hero";
-import Products from "../../components/Products/Products";
+import Hero from "./Hero/Hero";
+import Products from "./Products/Products";
 
 function Main() {
   // Incept the category name to be used both in title

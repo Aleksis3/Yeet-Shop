@@ -31,7 +31,17 @@
 .signUp__form {
   display: flex;
   font-size: 2rem;
+  gap: 1.3rem;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+
+  &-title {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  &-label {
+    margin: 0 auto;
+    margin-bottom: 0.2rem;
+  }
 }

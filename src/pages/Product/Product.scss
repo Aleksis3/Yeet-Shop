@@ -1,29 +1,131 @@
 .product {
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-template-rows: 1fr auto;
-  gap: 1rem;
+  grid-template-rows: auto 1fr;
+
   max-width: 130rem;
-  margin: 8rem auto 0 auto;
+  margin: 4rem auto 0 auto;
+  background-color: #e6dccf;
+
   font-size: 2rem;
-  background-color: rgb(243, 240, 230);
-  border: 1px #444 solid;
+
+  // background-color: rgb(243, 240, 230);
+  // border: 1px #444 solid;
+
+  &__img-container {
+    grid-row: 1/-1;
+  }
 
   &__img {
     border-radius: 5px;
     border-right: 1px #444 solid;
     // width: 35rem;
-    height: 40rem;
-    object-fit: contain;
+    height: 45rem;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem 1rem 0 1rem;
+  }
+
+  &__identifiers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__title,
+  &__author {
+    font-size: 2.8rem;
   }
 
   &__title {
-    font-size: 3rem;
+    font-weight: bold;
   }
 
-  &__reviews {
-    grid-column: 1/-1;
+  &__categories-header {
+    margin-top: 1rem;
+  }
+
+  &__buy-container {
     display: flex;
-    justify-content: space-between;
+    gap: 3rem;
+    margin-top: 1rem;
+    align-items: center;
+  }
+
+  &__buy-btn {
+    width: fit-content;
+    padding: 0.6rem;
+  }
+
+  &__desc-container {
+    background-color: #fff4e6;
+    grid-row: -1;
+    grid-column: 1/-1;
+    width: 100%;
+    margin: 0rem 1rem 1rem 0;
+    padding: 0 1rem;
+  }
+
+  &__desc-header {
+    margin: 1.5rem 0 0.5rem 0;
+    font-size: 2.6rem;
+    font-weight: bold;
+  }
+
+  &__desc {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
   }
 }
+
+@media screen and (max-width: 56.25rem) {
+  .product {
+    &__identifiers {
+      flex-direction: column;
+    }
+  }
+}
+
+@media screen and (max-width: 35rem) {
+  .product {
+    gap: 1rem;
+  }
+
+  .product__img-container {
+    margin: auto;
+    grid-column: 1/-1;
+    grid-row: 1/2;
+  }
+  .product__details {
+    grid-row: 2/3;
+    grid-column: 1/-1;
+    margin: auto;
+  }
+}
+
+// &__reviews {
+//   grid-column: 1/-1;
+//   display: flex;
+//   justify-content: space-between;
+// }
+
+//   .product {
+//     &__img-container {
+//       grid-row: 1/2;
+//     }
+
+//     &__details {
+//       flex-direction: column;
+//       margin-left: 1rem;
+//     }
+
+//     &__desc {
+//       grid-column: 1/-1;
+//     }
+//   }
