@@ -36,7 +36,7 @@ function LogIn(props: ILogIn) {
 
   return (
     <div>
-      <h1>Create a new account</h1>
+      <h1 className="signup-title">Create a new account</h1>
       <form className="signUp__form" action="">
         <div className="signUp__formEl-wrapper">
           <label htmlFor="email">Email</label>

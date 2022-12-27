@@ -1,0 +1,17 @@
+.reviews {
+  background-color: #eee;
+  max-width: 130rem;
+  width: 100%;
+  margin: 3rem auto;
+  font-size: 2rem;
+  &__add-container {
+    width: 100%;
+    border-bottom: 1px black solid;
+  }
+  &__add {
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+    margin: 0 5rem;
+  }
+}

@@ -33,5 +33,15 @@
 
   &__quantity {
     margin-left: 8rem;
+
+    @media only screen and (max-width: 28rem) {
+      margin-left: 2rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 35rem) {
+  .cart-item {
+    margin-left: 1rem;
   }
 }

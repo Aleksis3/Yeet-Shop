@@ -5,6 +5,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { RootState } from "./store";
+
 import { auth } from "../firebase/firebase";
 
 // Define a type for the slice state

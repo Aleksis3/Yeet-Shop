@@ -20,6 +20,7 @@ function Cart(props: ICartProps) {
       img={book.img}
     />
   ));
+
   return (
     <div className="cart">
       <div className="cart__cart-items">{cartItems}</div>
