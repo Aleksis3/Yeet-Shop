@@ -12,7 +12,7 @@ function Review() {
     <div className="review">
       <div className="review__details">
         <p>Author: xxxx</p>
-        <p>Rating: {String.fromCharCode(0x2b50).repeat(3)}</p>
+        <p>Rating: {String.fromCharCode(9734).repeat(3)}</p>
         <p>Date: 21.08.2022</p>
       </div>
       {/* <button onClick={handleAdd}>fdasdasdasdasdasdass</button> */}

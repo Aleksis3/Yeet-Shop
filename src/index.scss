@@ -92,6 +92,24 @@ input[type="number"]::-webkit-outer-spin-button {
   text-align: center;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.none {
+  display: none;
+}
+
+.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media only screen and (max-width: 37.5rem) {
   html {
     font-size: 50%;

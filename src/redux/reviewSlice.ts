@@ -7,6 +7,7 @@ import {
   getDoc,
   increment,
   setDoc,
+  Timestamp,
 } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { RootState } from "./store";
@@ -58,11 +59,11 @@ export const addReview = createAsyncThunk(
     const state = getState() as RootState;
     const user = state.auth.uid;
     try {
-      await addDoc(collection(db, "reviews", bookId), {
-        bookId,
+      await setDoc(doc(db, "books", "reviews", bookId, user), {
         content,
         score,
         author: user,
+        date: Timestamp.now(),
       });
       alert("Your review has been added!");
     } catch (e) {
