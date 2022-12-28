@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Header.scss";
 import { Link } from "react-router-dom";
 import SignUp from "../SignUp/SignUp";
-import { logout, selectUser } from "../../redux/authSlice";
+import { logout, selectUserId } from "../../redux/authSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { selectCartItems, selectItemsCount } from "../../redux/cartSlice";
 import Modal from "../Modal/Modal";
@@ -15,7 +15,7 @@ function Header() {
   const [showModal, setShowModal] = useState(false);
 
   const dispatch = useAppDispatch();
-  const user = useAppSelector(selectUser);
+  const user = useAppSelector(selectUserId);
   const cartItems = useAppSelector(selectCartItems);
   const cartItemsCount = useAppSelector(selectItemsCount);
   console.log(cartItems);

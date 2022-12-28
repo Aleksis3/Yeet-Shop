@@ -49,12 +49,12 @@ export const addReview = createAsyncThunk(
   async (details: IReview, { getState }) => {
     const { bookId, score, content } = details;
     const state = getState() as RootState;
-    const user = state.auth.uid;
+    const username = state.auth.login;
     try {
-      await setDoc(doc(db, "books", "reviews", bookId, user), {
+      await setDoc(doc(db, "books", "reviews", bookId, username), {
         content,
         score,
-        author: user,
+        author: username,
         date: Timestamp.now(),
       });
       alert("Your review has been added!");

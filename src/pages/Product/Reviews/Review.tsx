@@ -1,6 +1,6 @@
 import "./Review.scss";
-import { useAppDispatch } from "../../../redux/hooks";
-import { addReview, IReview } from "../../../redux/reviewSlice";
+
+import { IReview } from "../../../redux/reviewSlice";
 
 function Review(props: IReview) {
   return (

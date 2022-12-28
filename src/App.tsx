@@ -9,12 +9,12 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "./firebase/firebase";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
-import { selectUser } from "./redux/authSlice";
+import { selectUserId } from "./redux/authSlice";
 import { fetchCart } from "./redux/cartSlice";
 import { IBook } from "./types/types";
 
 function App() {
-  const user = useAppSelector(selectUser);
+  const user = useAppSelector(selectUserId);
   const dispatch = useAppDispatch();
   const collectionRef = collection(db, "test", `${user}`, "cart");
 

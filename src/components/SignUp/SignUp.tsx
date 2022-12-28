@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { selectUser, signup } from "../../redux/authSlice";
+import { selectUserId, signup } from "../../redux/authSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import "./SignUp.scss";
@@ -15,7 +15,7 @@ function SignUp(props: ISignUp) {
     password: "dfsdfsdfs123",
     confirmPassword: "",
   });
-  const user = useAppSelector(selectUser);
+  const user = useAppSelector(selectUserId);
   const dispatch = useAppDispatch();
 
   const handleRegister = (
