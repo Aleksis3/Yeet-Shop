@@ -1,0 +1,13 @@
+.pagination {
+  display: flex;
+  margin-top: 2rem;
+  gap: 3rem;
+  font-size: 2rem;
+  color: red;
+
+  justify-content: center;
+
+  &__arrow {
+    cursor: pointer;
+  }
+}

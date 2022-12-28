@@ -3,7 +3,7 @@ import Hero from "./Hero/Hero";
 import Products from "./Products/Products";
 
 function Main() {
-  // Incept the category name to be used both in title
+  // Get the category name that 'll  be used both in title
   // and in API call from the url param,
   // and if there's none show header and use defaults
 
