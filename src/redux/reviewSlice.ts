@@ -12,37 +12,29 @@ import {
 import { db } from "../firebase/firebase";
 import { RootState } from "./store";
 
-interface reviewState {
-  reviews: {
-    id: string;
-    user: string;
-    date: string;
-    score: number;
-    content: string;
-  }[];
-  averageScore: number;
-  totalReviews: number;
-}
-
-interface IReview {
+export interface IReview {
+  author?: string;
+  date?: string;
   bookId: string;
   score: number;
   content: string;
 }
 
+interface reviewState {
+  reviews: IReview[];
+}
+
 const initialState = <reviewState>{
   reviews: [],
-  averageScore: 0,
-  totalReviews: 0,
 };
 
 export const reviewSlice = createSlice({
   name: "review",
   initialState,
   reducers: {
-    fetchCart: (state, action) => {
+    fetchReviews: (state, action) => {
       console.log(action);
-      //   state.items = action.payload;
+      state.reviews = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -72,15 +64,8 @@ export const addReview = createAsyncThunk(
   }
 );
 
-// export const addReview = createAsyncThunk(
-//     "auth/addReview",
-//     async (f, { getState }) => {
-//       try {
-//         const { auth } = getState() as RootState;
-//         const uid = auth.uid;
-//         return uid;
-//       } catch (e) {
-//         console.log(e);
-//       }
-//     }
-//   );
+export const { fetchReviews } = reviewSlice.actions;
+
+export const selectReviews = (state: RootState) => state.review.reviews;
+
+export default reviewSlice.reducer;

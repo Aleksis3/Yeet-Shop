@@ -46,7 +46,7 @@ export const authSlice = createSlice({
 export const signup = createAsyncThunk(
   "auth/signup",
   async (registerCredentials: userData) => {
-    const { email, password } = registerCredentials;
+    const { email, password, login } = registerCredentials;
     const promise = createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user.uid;

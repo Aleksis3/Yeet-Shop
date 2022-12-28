@@ -1,22 +1,25 @@
 import "./Review.scss";
 import { useAppDispatch } from "../../../redux/hooks";
-import { addReview } from "../../../redux/reviewSlice";
+import { addReview, IReview } from "../../../redux/reviewSlice";
 
-function Review() {
-  //   const dispatch = useAppDispatch();
-  //   const handleAdd = () => {
-  //     dispatch(addReview({ bookId: "", content: "", score: 0 }));
-  //   };
-
+function Review(props: IReview) {
   return (
     <div className="review">
       <div className="review__details">
-        <p>Author: xxxx</p>
-        <p>Rating: {String.fromCharCode(9734).repeat(3)}</p>
-        <p>Date: 21.08.2022</p>
+        <div className="review__details__identifiers">
+          <p>Author: {props.author},</p>
+          <p>
+            on <i>13.12.2022</i> {props.date}
+          </p>
+        </div>
+        <p className="a">
+          Rating:
+          <span className="review__stars">
+            {String.fromCharCode(9733).repeat(props.score)}
+          </span>
+        </p>
       </div>
-      {/* <button onClick={handleAdd}>fdasdasdasdasdasdass</button> */}
-      <p className="review__content">Good shit, 'd reccc xoxoxoxoxoxo</p>
+      <p className="review__content">{props.content}</p>
     </div>
   );
 }
