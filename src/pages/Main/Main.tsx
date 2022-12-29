@@ -3,18 +3,17 @@ import Hero from "./Hero/Hero";
 import Products from "./Products/Products";
 
 function Main() {
-  // Get the category name that 'll  be used both in title
-  // and in API call from the url param,
-  // and if there's none show header and use defaults
+  // Get the category name that 'll be used
+  // as genre header and as a part of query in the API call
 
-  let { category } = useParams();
-  console.log(category);
-  const title = category?.toUpperCase() || "Newly Added";
+  let { category, page } = useParams();
+
+  const title = category?.toUpperCase() || "Fiction Relases";
 
   return (
     <>
       {!category && <Hero />}
-      <Products title={title} category={category} />
+      <Products title={title} category={category} page={page} />
     </>
   );
 }

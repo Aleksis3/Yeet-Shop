@@ -44,9 +44,11 @@ function App() {
       <Header />
       <Navbar />
       <Routes>
-        {["/", "/category/:category"].map((path) => (
-          <Route path={path} element={<Main />} />
-        ))}
+        {["/", "/category/:category/", "/category/:category/:page"].map(
+          (path) => (
+            <Route path={path} element={<Main />} />
+          )
+        )}
         <Route path="/product/:id" element={<Product />} />
       </Routes>
       <Footer />
