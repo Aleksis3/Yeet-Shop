@@ -16,6 +16,10 @@
     width: 100%;
     text-align: center;
 
+    a {
+      display: block;
+    }
+
     &:hover {
       background-color: #ddd;
       color: #222;

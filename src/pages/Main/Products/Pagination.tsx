@@ -1,6 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faArrowLeft,
+  faAnglesRight,
+  faAnglesLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import "./Pagination.scss";
+import React from "react";
 
 interface IProps {
   productsCount: number;
@@ -9,7 +15,7 @@ interface IProps {
 }
 
 function Pagination(props: IProps) {
-  const pageNumbers = [];
+  const pageNumbers: number[] = [];
 
   // make a page squared reference for the result of
   // all available books divided by the number of how many
@@ -19,10 +25,21 @@ function Pagination(props: IProps) {
     pageNumbers.push(i);
   }
 
-  const pageEls = pageNumbers.map((number) => (
+  const rightSiblings = pageNumbers.filter(
+    (number) => number >= props.page && number < props.page + 4
+  );
+
+  const leftSiblings = pageNumbers.filter(
+    (number) => number < props.page && number > props.page - 3
+  );
+
+  const siblings = [...leftSiblings, ...rightSiblings];
+  const pageEls = siblings.map((number) => (
     <li
       key={number}
-      className="pagination__page-number"
+      className={`pagination__page ${
+        number === props.page ? "pagination__page--current" : ""
+      }`}
       onClick={() => props.handleChangePage(number)}
     >
       {number}
@@ -31,6 +48,12 @@ function Pagination(props: IProps) {
 
   return (
     <div className="pagination">
+      <i
+        onClick={() => props.handleChangePage(1)}
+        className="pagination__arrow"
+      >
+        <FontAwesomeIcon icon={faAnglesLeft} />
+      </i>
       <i
         onClick={() => props.handleChangePage(props.page - 1)}
         className="pagination__arrow"
@@ -43,6 +66,12 @@ function Pagination(props: IProps) {
         className="pagination__arrow"
       >
         <FontAwesomeIcon icon={faArrowRight} />
+      </i>
+      <i
+        onClick={() => props.handleChangePage(pageNumbers.length)}
+        className="pagination__arrow"
+      >
+        <FontAwesomeIcon icon={faAnglesRight} />
       </i>
     </div>
   );

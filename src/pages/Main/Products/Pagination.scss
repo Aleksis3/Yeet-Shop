@@ -1,7 +1,7 @@
 .pagination {
   display: flex;
   margin-top: 2rem;
-  gap: 3rem;
+  gap: 2rem;
   font-size: 2rem;
   color: red;
 
@@ -9,9 +9,18 @@
 
   &__arrow {
     cursor: pointer;
+    padding: 0.3rem 0.9rem;
   }
 
-  &__page-number {
+  &__page {
     cursor: pointer;
+    padding: 0.3rem 0.9rem;
+    background-color: lightcyan;
+    border: 1px #333 solid;
+    border-radius: 50%;
+
+    &--current {
+      background-color: #111;
+    }
   }
 }

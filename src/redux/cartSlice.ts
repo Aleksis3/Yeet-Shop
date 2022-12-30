@@ -97,7 +97,7 @@ export const selectItemsCount = (state: RootState) =>
 
 export const selectTotalPrice = (state: RootState) =>
   state.cart.items.reduce((total, product) => {
-    return total + product.price * product.quantity;
+    return +(total + product.price * product.quantity).toFixed(2);
   }, 0);
 
 export default cartSlice.reducer;

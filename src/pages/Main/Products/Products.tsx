@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Pagination from "./Pagination";
 import ProductItem from "./Product/ProductItem";
 import "./Products.scss";
+import React from "react";
 
 interface Response {
   id: number;
@@ -44,10 +45,14 @@ function Products(props: IProductsProps) {
   const productsPerPage = 25;
   // change API's call starting index in accordance to clicked
   // page button
-
+  const didMount = useRef(false);
   // set current index to 0 after switching categories
   useEffect(() => {
-    setPage(1);
+    if (didMount.current) {
+      setPage(1);
+    } else {
+      didMount.current = true;
+    }
   }, [props.category]);
 
   // allow for the page change as long as given number
@@ -77,7 +82,7 @@ function Products(props: IProductsProps) {
       try {
         const data = await fetch(
           `https://www.googleapis.com/books/v1/volumes?q=subject:${
-            props.category || "fiction"
+            props.category
           }&filter=paid-ebooks&download=epub&langRestrict=en&maxResults=25&sort=newest&startIndex=${
             (page - 1) * productsPerPage
           }`
@@ -119,11 +124,11 @@ function Products(props: IProductsProps) {
   const productEls = products?.map((product) => {
     return (
       <ProductItem
-        title={product.volumeInfo.title || "Unknown"}
+        title={product.volumeInfo.title}
         key={product.id}
         id={product.id}
-        price={product.saleInfo?.listPrice?.amount || 0}
-        img={`${product.volumeInfo?.imageLinks?.thumbnail}` || ""}
+        price={product.saleInfo?.listPrice?.amount}
+        img={`${product.volumeInfo?.imageLinks?.thumbnail}`}
       />
     );
   });

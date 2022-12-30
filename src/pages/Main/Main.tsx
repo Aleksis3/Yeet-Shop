@@ -13,7 +13,7 @@ function Main() {
   return (
     <>
       {!category && <Hero />}
-      <Products title={title} category={category} page={page} />
+      <Products title={title} category={category || "fiction"} page={page} />
     </>
   );
 }
