@@ -30,7 +30,6 @@ function Header() {
       <Link className="header__logo" to="/">
         <p>YeetShop</p>
       </Link>
-      <Button className="header__favs">Wishes ✰</Button>
       {user && (
         <Button onClick={() => openModal("cart")}>Cart {cartItemsCount}</Button>
       )}
@@ -51,14 +50,7 @@ function Header() {
         </Modal>
       )}
 
-      {!user && (
-        <Button
-          onClick={() => openModal("signup")}
-          // className="header__register"
-        >
-          Register
-        </Button>
-      )}
+      {!user && <Button onClick={() => openModal("signup")}>Register</Button>}
       {showModal && modalContent === "signup" && (
         <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
           <SignUp handleClose={() => setShowModal(false)} />

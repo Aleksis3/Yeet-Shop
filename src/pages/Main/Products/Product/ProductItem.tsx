@@ -24,7 +24,9 @@ function ProductItem(props: IProductItemProps) {
   return (
     <article className="product-item">
       <Link to={`/product/${props.id}`}>
-        <img className="product-item__img" src={props.img} alt="" />
+        <div className="product-item__img-container">
+          <img className="product-item__img" src={props.img} alt="" />
+        </div>
         <p className="product-item__title">{shortenTitle(props.title)}</p>
         <p className="product-item__price">{props.price} PLN</p>
       </Link>

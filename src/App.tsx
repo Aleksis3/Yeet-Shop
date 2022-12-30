@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import { selectUserId } from "./redux/authSlice";
 import { fetchCart } from "./redux/cartSlice";
 import { IBook } from "./types/types";
+import Checkout from "./pages/Checkout/Checkout";
 
 function App() {
   const user = useAppSelector(selectUserId);
@@ -35,7 +36,6 @@ function App() {
         }
       }
     };
-
     fetchData();
   }, [user]);
 
@@ -44,12 +44,13 @@ function App() {
       <Header />
       <Navbar />
       <Routes>
-        {["/", "/category/:category/", "/category/:category/:page"].map(
+        {["/", "/category/:category/", "/category/:category/:page", "*"].map(
           (path) => (
             <Route path={path} element={<Main />} />
           )
         )}
         <Route path="/product/:id" element={<Product />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
       <Footer />
     </div>

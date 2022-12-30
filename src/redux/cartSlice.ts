@@ -1,5 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { deleteDoc, doc, getDoc, increment, setDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  increment,
+  setDoc,
+} from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { RootState } from "./store";
 
@@ -82,6 +90,23 @@ export const removeWithThunk = createAsyncThunk(
       } else {
         await deleteDoc(docRef);
       }
+    }
+  }
+);
+
+export const cleanCart = createAsyncThunk(
+  "auth/cleanCart",
+  async (_, { getState }) => {
+    const state = getState() as RootState;
+    const user = state.auth.uid;
+    const docRef = collection(db, "test", `${user}`, "cart");
+    try {
+      const snapshot = await getDocs(docRef);
+      snapshot.forEach((doc) => {
+        deleteDoc(doc.ref);
+      });
+    } catch (e) {
+      alert(e);
     }
   }
 );

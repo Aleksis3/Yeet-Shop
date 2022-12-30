@@ -3,9 +3,9 @@ import CartItem from "./CartItem";
 import React, { useRef, useLayoutEffect, useState } from "react";
 import { selectCartItems, selectTotalPrice } from "../../redux/cartSlice";
 import { useAppSelector } from "../../redux/hooks";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 interface ICartProps {
-  closeModal: () => void;
+  closeModal?: () => void;
 }
 function Cart(props: ICartProps) {
   const books = useAppSelector(selectCartItems);
@@ -28,7 +28,9 @@ function Cart(props: ICartProps) {
         <p>
           Total: <span className="cart__price-total">{totalPrice} PLN</span>
         </p>
-        <button className="cart__btn">To Checkout</button>
+        <Link to="/checkout">
+          <button className="cart__btn">To Checkout</button>
+        </Link>
       </div>
     </div>
   );

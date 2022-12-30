@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { addWithThunk } from "../../redux/cartSlice";
 import { useAppDispatch } from "../../redux/hooks";
-// import { IProduct } from "../../types/types";
 import "./Product.scss";
 import Reviews from "./Reviews/Reviews";
 
 interface Response {
-  id: number;
+  id: string;
   volumeInfo: {
     title: string;
     subtitle: string;
@@ -63,7 +62,7 @@ function Product() {
     fetchData();
   }, [id]);
 
-  let categories = product?.volumeInfo.categories
+  const categories = product?.volumeInfo.categories
     .splice(0, 3)
     .map((category) => (
       <p>
@@ -116,7 +115,7 @@ function Product() {
           </div>
         )}
       </div>
-      <Reviews bookId={id as string} />
+      <Reviews bookId={id!} />
     </>
   );
 }
