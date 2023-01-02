@@ -7,13 +7,22 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
 import { selectReviews } from "../../../redux/reviewSlice";
 import { fetchReviews } from "../../../redux/reviewSlice";
+import Button from "../../../components/Button/Button";
+import { selectUserId } from "../../../redux/authSlice";
 interface IProps {
   bookId: string;
 }
 
 function Reviews(props: IProps) {
   const [showForm, setShowForm] = useState(false);
-  const handleToggleForm = () => setShowForm((prev) => !prev);
+  const user = useAppSelector(selectUserId);
+  const handleToggleForm = () => {
+    if (user) {
+      setShowForm((prev) => !prev);
+    } else {
+      alert("You must be logged in!");
+    }
+  };
 
   const dispatch = useAppDispatch();
   const collectionRef = collection(db, "books", "reviews", `${props.bookId}`);
@@ -62,18 +71,16 @@ function Reviews(props: IProps) {
           <p className={`${showForm && "none"}`}>
             Want to share your own thoughts about the book?
           </p>
-          <button
+          <Button
             onClick={handleToggleForm}
             className={`${showForm && "center"}`}
           >
             {showForm ? "Close" : "Leave a rating!"}
-          </button>
+          </Button>
         </div>
         {showForm && <ReviewForm bookId={props.bookId} />}
       </div>
-      <div className="sdfdfs">{reviewEls}</div>
-      {/* <Review />
-      <Review /> */}
+      <div>{reviewEls}</div>
     </div>
   );
 }

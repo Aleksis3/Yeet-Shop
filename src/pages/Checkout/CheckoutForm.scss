@@ -1,0 +1,35 @@
+.checkout-form {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+
+  &__input-wrapper {
+    align-items: center;
+    gap: 1rem;
+    font-size: 2.1rem;
+    font-weight: 600;
+
+    label {
+      display: inline-block;
+      width: 19rem;
+    }
+
+    input {
+      border-radius: 2px;
+      padding: 0.2rem;
+    }
+  }
+
+  &__button {
+    background-color: #ffd8a8;
+    border: 1px #333 solid;
+    font-weight: bold;
+    margin-top: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.2rem;
+    align-self: center;
+    width: 90%;
+    padding: 1rem 2.5rem;
+  }
+}

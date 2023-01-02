@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { selectUserId, signup } from "../../redux/authSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import Button from "../Button/Button";
 
-import "./SignUp.scss";
+import "./authForm.scss";
 
 interface ISignUp {
   handleClose: () => void;
@@ -15,8 +16,9 @@ function SignUp(props: ISignUp) {
     password: "dfsdfsdfs123",
     confirmPassword: "",
   });
-  const user = useAppSelector(selectUserId);
+
   const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUserId);
 
   const handleRegister = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -38,10 +40,10 @@ function SignUp(props: ISignUp) {
 
   return (
     <div>
-      <h1 className="signUp__form-title">Create a new account</h1>
-      <form className="signUp__form" action="">
-        <div className="signUp__formEl-wrapper">
-          <label htmlFor="login" className="signUp__form-label">
+      <h1 className="auth__form-title">Create a new account</h1>
+      <form className="auth__form" action="">
+        <div className="auth__formEl-wrapper">
+          <label htmlFor="login" className="auth__form-label">
             Login
           </label>
           <input
@@ -51,8 +53,8 @@ function SignUp(props: ISignUp) {
             onChange={inputChangeHandler}
           />
         </div>
-        <div className="signUp__formEl-wrapper">
-          <label htmlFor="email" className="signUp__form-label">
+        <div className="auth__formEl-wrapper">
+          <label htmlFor="email" className="auth__form-label">
             Email
           </label>
           <input
@@ -62,8 +64,8 @@ function SignUp(props: ISignUp) {
             onChange={inputChangeHandler}
           />
         </div>
-        <div className="signUp__formEl-wrapper">
-          <label htmlFor="password" className="signUp__form-label">
+        <div className="auth__formEl-wrapper">
+          <label htmlFor="password" className="auth__form-label">
             Password
           </label>
           <input
@@ -73,9 +75,7 @@ function SignUp(props: ISignUp) {
             onChange={inputChangeHandler}
           />
         </div>
-        <button className="signUp__btn" onClick={(e) => handleRegister(e)}>
-          Submit
-        </button>
+        <Button onClick={(e) => handleRegister(e)}>Submit</Button>
       </form>
     </div>
   );

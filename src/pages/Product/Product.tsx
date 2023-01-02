@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Button from "../../components/Button/Button";
+import { selectUserId } from "../../redux/authSlice";
 import { addWithThunk } from "../../redux/cartSlice";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import "./Product.scss";
 import Reviews from "./Reviews/Reviews";
 
@@ -31,15 +33,21 @@ function Product() {
   let { id } = useParams();
   const [product, setProduct] = useState<Response>();
   const dispatch = useAppDispatch();
-  const handleAdd = () =>
-    dispatch(
-      addWithThunk({
-        id,
-        title: product?.volumeInfo.title,
-        price: product?.saleInfo.listPrice.amount,
-        img: product?.volumeInfo.imageLinks.thumbnail,
-      })
-    );
+  const user = useAppSelector(selectUserId);
+  const handleAdd = () => {
+    if (user) {
+      dispatch(
+        addWithThunk({
+          id,
+          title: product?.volumeInfo.title,
+          price: product?.saleInfo.listPrice.amount,
+          img: product?.volumeInfo.imageLinks.thumbnail,
+        })
+      );
+    } else {
+      alert("You must be logged in!");
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,21 +62,28 @@ function Product() {
         const json = await data.json();
         console.log(json);
         setProduct(json);
-      } catch (e: any) {
-        alert(e.error.message);
-        console.log(e);
+      } catch (e) {
+        let eMessage = "Failed to fetch data";
+        if (e instanceof Error) {
+          eMessage = e.message;
+        }
+        alert(eMessage);
       }
     };
     fetchData();
   }, [id]);
 
-  const categories = product?.volumeInfo.categories
-    .splice(0, 3)
-    .map((category) => (
-      <p>
-        {category},<br />
-      </p>
-    ));
+  const categories = product?.volumeInfo?.categories
+    ? product?.volumeInfo?.categories.splice(0, 3).map((category) => (
+        <p>
+          {category},<br />
+        </p>
+      ))
+    : "Unknown";
+
+  const authors =
+    product?.volumeInfo?.authors?.splice(0, 3).join(", ").toString() ||
+    "Author Unknown";
 
   return (
     <>
@@ -83,24 +98,20 @@ function Product() {
         <div className="product__details">
           <div className="product__identifiers">
             <p className="product__title">{product?.volumeInfo.title},</p>
-            <p className="product__author">
-              {product?.volumeInfo?.authors
-                ?.splice(0, 3)
-                .join(", ")
-                .toString() || "Author Unknown"}
-            </p>
+            <p className="product__author">{authors}</p>
           </div>
-          <p>Publisher: {product?.volumeInfo.publisher}</p>
-          <p>Year: {product?.volumeInfo.publishedDate}</p>
+          <p>Publisher: {product?.volumeInfo.publisher || "Unknown"}</p>
+          <p>Year: {product?.volumeInfo.publishedDate || "Unknown"}</p>
+          <p>Pages: {product?.volumeInfo.pageCount || "Unknown"}</p>
           <p className="product__categories-header">Categories: </p>
           {categories}
           <div className="product__buy-container">
             <p>
               Price: <b>{product?.saleInfo.listPrice.amount} PLN</b>
             </p>
-            <button className="product__buy-btn" onClick={handleAdd}>
+            <Button className="product__buy-btn" onClick={handleAdd}>
               Add to cart
-            </button>
+            </Button>
           </div>
         </div>
         {product && (

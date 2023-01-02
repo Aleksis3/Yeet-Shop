@@ -1,13 +1,13 @@
 import { useState } from "react";
 import "./Header.scss";
 import { Link } from "react-router-dom";
-import SignUp from "../SignUp/SignUp";
+import SignUp from "../Auth/SignUp";
 import { logout, selectUserId } from "../../redux/authSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { selectCartItems, selectItemsCount } from "../../redux/cartSlice";
 import Modal from "../Modal/Modal";
 import Cart from "../Cart/Cart";
-import LogIn from "../LogIn/LogIn";
+import LogIn from "../Auth/LogIn";
 import Button from "../Button/Button";
 
 function Header() {
@@ -42,7 +42,9 @@ function Header() {
       {!user ? (
         <Button onClick={() => openModal("login")}>Log In</Button>
       ) : (
-        <Button onClick={() => dispatch(logout())}>Log out</Button>
+        <Button className="header__btn" onClick={() => dispatch(logout())}>
+          Log out
+        </Button>
       )}
       {showModal && modalContent === "login" && (
         <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
@@ -50,7 +52,11 @@ function Header() {
         </Modal>
       )}
 
-      {!user && <Button onClick={() => openModal("signup")}>Register</Button>}
+      {!user && (
+        <Button className="header__btn" onClick={() => openModal("signup")}>
+          Register
+        </Button>
+      )}
       {showModal && modalContent === "signup" && (
         <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
           <SignUp handleClose={() => setShowModal(false)} />

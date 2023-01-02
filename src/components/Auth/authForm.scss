@@ -22,13 +22,13 @@
   cursor: pointer;
 }
 
-.signUp__formEl-wrapper {
+.auth__formEl-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  // align-items: flex-start;
 }
 
-.signUp__form {
+.auth__form {
   display: flex;
   font-size: 2rem;
   gap: 1.3rem;
@@ -36,12 +36,18 @@
   align-items: center;
 
   &-title {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 2.1rem;
     text-align: center;
   }
 
-  &-label {
+  label {
     margin: 0 auto;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.4rem;
+    text-align: center;
+  }
+
+  input {
+    padding: 0.2rem 0.4rem;
   }
 }

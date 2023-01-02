@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Pagination from "./Pagination";
 import ProductItem from "./Product/ProductItem";
 import "./Products.scss";
-import React from "react";
 
 interface Response {
   id: number;
@@ -14,9 +13,6 @@ interface Response {
       thumbnail: string;
     };
   };
-  // industryIdentifers: {
-  //   imageLinks: any[];
-  // };
   saleInfo: {
     listPrice: {
       amount: number;

@@ -1,5 +1,4 @@
 import "./Review.scss";
-
 import { IReview } from "../../../redux/reviewSlice";
 
 function Review(props: IReview) {

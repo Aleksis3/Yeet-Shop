@@ -3,12 +3,12 @@ import "./Button.scss";
 
 type ButtonProps = {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (any: any) => void;
   className?: string;
 };
 function Button(props: ButtonProps) {
   return (
-    <button className="button className" onClick={props.onClick}>
+    <button className={`button ${props.className}`} onClick={props.onClick}>
       {props.children}
     </button>
   );

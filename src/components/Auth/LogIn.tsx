@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { selectUserId, signin } from "../../redux/authSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import Button from "../Button/Button";
 
-import "./LogIn.scss";
+import "./authForm.scss";
 
 interface ILogIn {
   handleClose: () => void;
@@ -36,10 +37,12 @@ function LogIn(props: ILogIn) {
 
   return (
     <div>
-      <h1 className="signup-title">Create a new account</h1>
-      <form className="signUp__form" action="">
-        <div className="signUp__formEl-wrapper">
-          <label htmlFor="email">Email</label>
+      <h1 className="auth__form-title">Sign In</h1>
+      <form className="auth__form" action="">
+        <div className="auth__formEl-wrapper">
+          <label className="auth__form-label" htmlFor="email">
+            Email
+          </label>
           <input
             id="email"
             type="email"
@@ -47,8 +50,10 @@ function LogIn(props: ILogIn) {
             onChange={inputChangeHandler}
           />
         </div>
-        <div className="signUp__formEl-wrapper">
-          <label htmlFor="password">Password</label>
+        <div className="auth__formEl-wrapper">
+          <label className="auth__form-label" htmlFor="password">
+            Password
+          </label>
           <input
             id="password"
             type="password"
@@ -56,9 +61,9 @@ function LogIn(props: ILogIn) {
             onChange={inputChangeHandler}
           />
         </div>
-        <button className="signUp__btn" onClick={(e) => handleRegister(e)}>
+        <Button className="auth__btn" onClick={(e) => handleRegister(e)}>
           Submit
-        </button>
+        </Button>
       </form>
     </div>
   );
