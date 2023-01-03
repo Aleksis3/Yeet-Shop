@@ -17,12 +17,13 @@ import Checkout from "./pages/Checkout/Checkout";
 function App() {
   const user = useAppSelector(selectUserId);
   const dispatch = useAppDispatch();
-  const collectionRef = collection(db, "test", `${user}`, "cart");
 
+  //
   useEffect(() => {
+    const cartRef = collection(db, "test", `${user}`, "cart");
     const fetchData = async () => {
       try {
-        onSnapshot(collectionRef, (snapshot: any) => {
+        onSnapshot(cartRef, (snapshot: any) => {
           const querySnapshot = snapshot.docs;
           const bookData: IBook[] = [];
           querySnapshot.forEach((doc: any) => bookData.push(doc.data()));
@@ -45,8 +46,8 @@ function App() {
       <Navbar />
       <Routes>
         {["/", "/category/:category/", "/category/:category/:page", "*"].map(
-          (path) => (
-            <Route path={path} element={<Main />} />
+          (path, index) => (
+            <Route path={path} key={index} element={<Main />} />
           )
         )}
         <Route path="/product/:id" element={<Product />} />

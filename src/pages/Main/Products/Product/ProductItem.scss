@@ -8,29 +8,22 @@
   overflow: hidden;
   border-radius: 2px;
   font-weight: bold;
-  font-family: "Libre Baskerville", serif;
-  // font-family: "Roboto Slab", serif;
 
   @media only screen and (max-width: 50rem) {
     margin-top: 0.8rem;
   }
 
-  &__img-container {
-    // display: flex;
-    // align-items: center;
-    // justify-content: center;
-    height: 30rem;
-    width: 20rem;
-
-    @media only screen and (max-width: 50rem) {
-      height: 26rem;
-    }
-  }
+  // &__img-container {
+  //   @media only screen and (max-width: 50rem) {
+  //     height: 26rem;
+  //   }
+  // }
 
   &__img {
     display: flex;
-    height: 100%;
+    height: 30rem;
     width: 100%;
+
     margin: 0 auto;
     text-align: center;
     border: 1px #444 solid;

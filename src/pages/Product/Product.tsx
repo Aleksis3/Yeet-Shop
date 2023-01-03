@@ -74,8 +74,8 @@ function Product() {
   }, [id]);
 
   const categories = product?.volumeInfo?.categories
-    ? product?.volumeInfo?.categories.splice(0, 3).map((category) => (
-        <p>
+    ? product?.volumeInfo?.categories.splice(0, 3).map((category, i) => (
+        <p key={i}>
           {category},<br />
         </p>
       ))

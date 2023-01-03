@@ -14,12 +14,12 @@ function Header() {
   const [modalContent, setModalContent] = useState("");
   const [showModal, setShowModal] = useState(false);
 
-  const dispatch = useAppDispatch();
   const user = useAppSelector(selectUserId);
-  const cartItems = useAppSelector(selectCartItems);
   const cartItemsCount = useAppSelector(selectItemsCount);
-  console.log(cartItems);
+  const dispatch = useAppDispatch();
 
+  // opens the modal containing component specified
+  // as an argument
   const openModal = (feature: string) => {
     setModalContent(feature);
     setShowModal(true);
@@ -51,7 +51,6 @@ function Header() {
           <LogIn handleClose={() => setShowModal(false)} />
         </Modal>
       )}
-
       {!user && (
         <Button className="header__btn" onClick={() => openModal("signup")}>
           Register

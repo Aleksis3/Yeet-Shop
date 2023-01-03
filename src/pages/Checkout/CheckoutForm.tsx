@@ -24,7 +24,7 @@ function CheckoutForm() {
     navigate("/");
   };
 
-  const getInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, id } = e.currentTarget;
     setUserInput((prev) => ({
       ...prev,
@@ -40,7 +40,7 @@ function CheckoutForm() {
           type="text"
           id="name"
           required
-          onChange={getInput}
+          onChange={inputChangeHandler}
           value={userInput.name}
         />
       </div>
@@ -49,7 +49,7 @@ function CheckoutForm() {
         <input
           type="text"
           id="surname"
-          onChange={getInput}
+          onChange={inputChangeHandler}
           value={userInput.surname}
           required
         />
@@ -59,7 +59,7 @@ function CheckoutForm() {
         <input
           type="text"
           id="address-1"
-          onChange={getInput}
+          onChange={inputChangeHandler}
           value={userInput["address-1"]}
           required
         />
@@ -69,7 +69,7 @@ function CheckoutForm() {
         <input
           type="text"
           id="address-2"
-          onChange={getInput}
+          onChange={inputChangeHandler}
           value={userInput["address-2"]}
           required
         />
@@ -79,7 +79,7 @@ function CheckoutForm() {
         <input
           type="text"
           id="city"
-          onChange={getInput}
+          onChange={inputChangeHandler}
           value={userInput.city}
           required
         />
@@ -89,7 +89,7 @@ function CheckoutForm() {
         <input
           type="text"
           id="province"
-          onChange={getInput}
+          onChange={inputChangeHandler}
           value={userInput.province}
           required
         />
@@ -99,7 +99,7 @@ function CheckoutForm() {
         <input
           type="number"
           id="postal"
-          onChange={getInput}
+          onChange={inputChangeHandler}
           value={userInput.postal}
           required
         />

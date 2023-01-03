@@ -48,6 +48,7 @@ function LogIn(props: ILogIn) {
             type="email"
             value={userInput.email}
             onChange={inputChangeHandler}
+            required
           />
         </div>
         <div className="auth__formEl-wrapper">
@@ -59,6 +60,7 @@ function LogIn(props: ILogIn) {
             type="password"
             value={userInput.password}
             onChange={inputChangeHandler}
+            required
           />
         </div>
         <Button className="auth__btn" onClick={(e) => handleRegister(e)}>
