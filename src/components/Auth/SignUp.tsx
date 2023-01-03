@@ -11,10 +11,10 @@ interface ISignUp {
 
 function SignUp(props: ISignUp) {
   const [userInput, setUserInput] = useState({
-    login: "dfsdfsdfs",
-    email: "fsddfs@gmail.com",
-    password: "dfsdfsdfs123",
-    "password-confirm": "dfsdfsdfs123",
+    login: "",
+    email: "",
+    password: "",
+    "password-confirm": "",
   });
 
   const dispatch = useAppDispatch();

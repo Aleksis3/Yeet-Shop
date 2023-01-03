@@ -2,7 +2,7 @@ import "./Cart.scss";
 import CartItem from "./CartItem";
 import { selectCartItems, selectTotalPrice } from "../../redux/cartSlice";
 import { useAppSelector } from "../../redux/hooks";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 
 function Cart() {
@@ -22,14 +22,18 @@ function Cart() {
   return (
     <div className="cart">
       <div className="cart__cart-items">{cartItems}</div>
-      <div className="cart__summary">
-        <p>
-          Total: <span className="cart__price-total">{totalPrice} PLN</span>
-        </p>
-        <Link to="/checkout">
-          <Button className="cart__btn">To Checkout</Button>
-        </Link>
-      </div>
+      {books.length ? (
+        <div className="cart__summary">
+          <p>
+            Total: <span className="cart__price-total">{totalPrice} PLN</span>
+          </p>
+          <Link to="/checkout">
+            <Button className="cart__btn">To Checkout</Button>
+          </Link>
+        </div>
+      ) : (
+        <p className="cart__summary">Your cart is currently empty!</p>
+      )}
     </div>
   );
 }

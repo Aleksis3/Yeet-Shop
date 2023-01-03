@@ -66,7 +66,7 @@ function Pagination(props: IProps) {
       >
         <FontAwesomeIcon icon={faArrowLeft} />
       </i>
-      {pageEls}
+      <ul className="pagination__pages">{pageEls}</ul>
       <i
         onClick={() => props.handleChangePage(props.page + 1)}
         className="pagination__arrow"

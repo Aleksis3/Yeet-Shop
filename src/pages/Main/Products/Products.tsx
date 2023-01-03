@@ -95,8 +95,6 @@ function Products(props: IProductsProps) {
     fetchData();
   }, [props.category, page]);
 
-  console.log(products);
-
   // map fetched results to individual Product components
 
   const productEls = products?.map((product) => {

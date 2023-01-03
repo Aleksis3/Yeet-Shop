@@ -11,8 +11,8 @@ interface ILogIn {
 
 function LogIn(props: ILogIn) {
   const [userInput, setUserInput] = useState({
-    email: "fsddfs@gmail.com",
-    password: "dfsdfsdfs123",
+    email: "",
+    password: "",
   });
   const user = useAppSelector(selectUserId);
   const dispatch = useAppDispatch();

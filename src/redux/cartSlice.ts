@@ -34,7 +34,6 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     fetchCart: (state, action) => {
-      console.log(action);
       state.items = action.payload;
     },
   },

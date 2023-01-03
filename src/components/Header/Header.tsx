@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import SignUp from "../Auth/SignUp";
 import { logout, selectUserId } from "../../redux/authSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { selectCartItems, selectItemsCount } from "../../redux/cartSlice";
+import { selectItemsCount } from "../../redux/cartSlice";
 import Modal from "../Modal/Modal";
 import Cart from "../Cart/Cart";
 import LogIn from "../Auth/LogIn";
@@ -31,7 +31,9 @@ function Header() {
         <p>YeetShop</p>
       </Link>
       {user && (
-        <Button onClick={() => openModal("cart")}>Cart {cartItemsCount}</Button>
+        <Button onClick={() => openModal("cart")}>
+          Cart ({cartItemsCount})
+        </Button>
       )}
       {showModal && modalContent === "cart" && (
         <Modal showModal={showModal} closeModal={() => setShowModal(false)}>

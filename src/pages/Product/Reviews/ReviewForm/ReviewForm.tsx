@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "../../../../components/Button/Button";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { addReview } from "../../../../redux/reviewSlice";
 import "./ReviewForm.scss";
@@ -43,7 +44,7 @@ function ReviewForm({ bookId, closeForm }: IProps) {
           id="review-form__details"
         ></textarea>
       </div>
-      <button className="review-form__submit">Submit</button>
+      <Button className="review-form__submit">Submit</Button>
     </form>
   );
 }

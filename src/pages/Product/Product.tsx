@@ -39,7 +39,6 @@ function Product() {
           throw e;
         }
         const json = await data.json();
-        console.log(json);
         setProduct(json);
       } catch (e) {
         let eMessage = "Failed to fetch data";

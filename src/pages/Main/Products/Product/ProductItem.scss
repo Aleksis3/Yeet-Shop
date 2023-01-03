@@ -1,23 +1,15 @@
 .product-item {
   max-width: 80%;
   margin: 0 auto;
-
   background-color: #e6f1ff;
   cursor: pointer;
   color: #222;
   overflow: hidden;
   border-radius: 2px;
   font-weight: bold;
-
   @media only screen and (max-width: 50rem) {
     margin-top: 0.8rem;
   }
-
-  // &__img-container {
-  //   @media only screen and (max-width: 50rem) {
-  //     height: 26rem;
-  //   }
-  // }
 
   &__img {
     display: flex;
@@ -45,6 +37,10 @@
     text-transform: uppercase;
     background-color: #ffd8a8;
     font-weight: bold;
+
+    &:hover {
+      background-color: green;
+    }
   }
 
   &__price {
