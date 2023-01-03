@@ -17,9 +17,7 @@ function LogIn(props: ILogIn) {
   const user = useAppSelector(selectUserId);
   const dispatch = useAppDispatch();
 
-  const handleRegister = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleLogIn = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     dispatch(signin({ ...userInput }));
   };
@@ -63,7 +61,7 @@ function LogIn(props: ILogIn) {
             required
           />
         </div>
-        <Button className="auth__btn" onClick={(e) => handleRegister(e)}>
+        <Button className="auth__btn" onClick={(e) => handleLogIn(e)}>
           Submit
         </Button>
       </form>

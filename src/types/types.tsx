@@ -1,15 +1,27 @@
-// export interface IProduct {
-//   category?: {
-//     id: number;
-//     image: string;
-//     name: string;
-//   };
-//   description?: string;
-//   id: number;
-//   images: string[];
-//   price: number;
-//   title: string;
-// }
+export interface IProductsResponse {
+  id: string;
+  volumeInfo: {
+    title: string;
+    subtitle: string;
+    description: string;
+    publisher: string;
+    pageCount: number;
+    publishedDate: string;
+    authors: string[];
+    categories: string[];
+    imageLinks: {
+      thumbnail: string;
+    };
+  };
+  saleInfo: {
+    listPrice: {
+      amount: number;
+    };
+    isEbook: boolean;
+  };
+  authors: string[];
+  description: string;
+}
 
 export interface IBook {
   id: number;

@@ -3,12 +3,9 @@ import { Link } from "react-router-dom";
 import { addWithThunk } from "../../../../redux/cartSlice";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { selectUserId } from "../../../../redux/authSlice";
-import SignUp from "../../../../components/Auth/SignUp";
-import Modal from "../../../../components/Modal/Modal";
-import { useState } from "react";
 
 export interface IProductItemProps {
-  id: number;
+  id: string;
   title: string;
   description?: string;
   img?: string;

@@ -1,23 +1,18 @@
 import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-  increment,
-  setDoc,
-  Timestamp,
-} from "firebase/firestore";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { RootState } from "./store";
 
 export interface IReview {
   author?: string;
-  date?: string;
+  date?: {
+    seconds: number;
+    nanoseconds: number;
+  };
   bookId: string;
   score: number;
   content: string;
+  id?: string;
 }
 
 interface reviewState {
@@ -33,13 +28,12 @@ export const reviewSlice = createSlice({
   initialState,
   reducers: {
     fetchReviews: (state, action) => {
-      console.log(action);
       state.reviews = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(addReview.rejected, (state, action) => {
-      console.log(action.payload);
+      alert(action.payload);
     });
   },
 });
@@ -52,6 +46,7 @@ export const addReview = createAsyncThunk(
     const username = state.auth.login;
     try {
       await setDoc(doc(db, "books", "reviews", bookId, username), {
+        id: nanoid(),
         content,
         score,
         author: username,

@@ -18,7 +18,7 @@ function App() {
   const user = useAppSelector(selectUserId);
   const dispatch = useAppDispatch();
 
-  //
+  // code for fetching cart's data
   useEffect(() => {
     const cartRef = collection(db, "test", `${user}`, "cart");
     const fetchData = async () => {

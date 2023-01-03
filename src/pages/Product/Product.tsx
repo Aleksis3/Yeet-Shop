@@ -4,34 +4,13 @@ import Button from "../../components/Button/Button";
 import { selectUserId } from "../../redux/authSlice";
 import { addWithThunk } from "../../redux/cartSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { IProductsResponse } from "../../types/types";
 import "./Product.scss";
 import Reviews from "./Reviews/Reviews";
 
-interface Response {
-  id: string;
-  volumeInfo: {
-    title: string;
-    subtitle: string;
-    description: string;
-    publisher: string;
-    pageCount: number;
-    publishedDate: string;
-    authors: string[];
-    categories: string[];
-    imageLinks: {
-      thumbnail: string;
-    };
-  };
-  saleInfo: {
-    listPrice: {
-      amount: number;
-    };
-  };
-}
-
 function Product() {
   let { id } = useParams();
-  const [product, setProduct] = useState<Response>();
+  const [product, setProduct] = useState<IProductsResponse>();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUserId);
   const handleAdd = () => {

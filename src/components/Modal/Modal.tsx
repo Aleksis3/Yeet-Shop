@@ -1,4 +1,5 @@
-import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
+import ReactDOM from "react-dom";
 import "./Modal.scss";
 import { closeModal } from "../../redux/modalSlice";
 import { useLocation } from "react-router-dom";
@@ -33,15 +34,16 @@ function Modal(props: ModalProps) {
     return null;
   }
 
-  return (
-    <div id="myModal" className="modal">
+  return ReactDOM.createPortal(
+    <div className="modal">
       <div className="modal-content">
-        <span className="close" onClick={props.closeModal}>
+        <span className="modal-close" onClick={props.closeModal}>
           &times;
         </span>
         {props.children}
       </div>
-    </div>
+    </div>,
+    document.getElementById("overlays") as HTMLElement
   );
 }
 

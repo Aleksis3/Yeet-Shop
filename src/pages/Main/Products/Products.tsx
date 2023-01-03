@@ -1,27 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { IProductsResponse } from "../../../types/types";
 import Pagination from "./Pagination";
 import ProductItem from "./Product/ProductItem";
 import "./Products.scss";
-
-interface Response {
-  id: number;
-  volumeInfo: {
-    title: string;
-    subtitle: string;
-    imageLinks: {
-      thumbnail: string;
-    };
-  };
-  saleInfo: {
-    listPrice: {
-      amount: number;
-    };
-    isEbook: boolean;
-  };
-  authors: string[];
-  description: string;
-}
 
 interface IProductsProps {
   category?: string;
@@ -30,19 +12,19 @@ interface IProductsProps {
 }
 
 function Products(props: IProductsProps) {
-  const [products, setProducts] = useState<Response[]>([]);
+  const [products, setProducts] = useState<IProductsResponse[]>([]);
   const [productsCount, setProductsCount] = useState(0);
   const [page, setPage] = useState((props.page && parseInt(props.page)) || 1);
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.pathname);
 
   const productsPerPage = 25;
-  // change API's call starting index in accordance to clicked
-  // page button
+
+  // set current page to 1 after category switch
+  // the code uses additional ref to make sure
+  // it doesn't fire upon initial mount
   const didMount = useRef(false);
-  // set current index to 0 after switching categories
   useEffect(() => {
     if (didMount.current) {
       setPage(1);
@@ -66,13 +48,11 @@ function Products(props: IProductsProps) {
       } else {
         navigate(`/category/${props.category}/${pageNumber}`);
       }
-      // navigate("/3");
       setPage(pageNumber);
     }
   };
 
-  // in the case in wich user decides to sort through all
-  // using the home page
+  // fetch the book items from the given category
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -87,7 +67,6 @@ function Products(props: IProductsProps) {
           const err = await data.json();
           throw err;
         }
-
         const json = await data.json();
 
         // solution for very rare cases in which the returned API
@@ -95,7 +74,7 @@ function Products(props: IProductsProps) {
         // neither ebooks nor for sale (possibly just the case of preorders)
 
         const filteredJson = json.items.filter(
-          (book: any) => book.saleInfo.isEbook !== false
+          (book: IProductsResponse) => book.saleInfo.isEbook !== false
         );
 
         setProducts(filteredJson);
@@ -105,9 +84,12 @@ function Products(props: IProductsProps) {
         // but the difference is almost negligible
 
         setProductsCount(json.totalItems);
-      } catch (e: any) {
-        alert(e.error.message);
-        console.error(e);
+      } catch (e) {
+        if (e instanceof Error) {
+          alert(e.message);
+        } else {
+          alert("Oops, there was some error!");
+        }
       }
     };
     fetchData();
@@ -115,7 +97,7 @@ function Products(props: IProductsProps) {
 
   console.log(products);
 
-  // map fetched results to single Product components
+  // map fetched results to individual Product components
 
   const productEls = products?.map((product) => {
     return (
@@ -137,6 +119,7 @@ function Products(props: IProductsProps) {
         page={page}
         productsCount={productsCount}
         handleChangePage={handleChangePage}
+        productsPerPage={productsPerPage}
       />
     </section>
   );

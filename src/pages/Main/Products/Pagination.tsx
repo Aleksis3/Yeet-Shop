@@ -6,10 +6,10 @@ import {
   faAnglesLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Pagination.scss";
-import React from "react";
 
 interface IProps {
   productsCount: number;
+  productsPerPage: number;
   page: number;
   handleChangePage: (page: number) => void;
 }
@@ -17,23 +17,29 @@ interface IProps {
 function Pagination(props: IProps) {
   const pageNumbers: number[] = [];
 
-  // make a page squared reference for the result of
-  // all available books divided by the number of how many
-  // are displayed on each one
+  // calculate the number of all pages by dividing
+  // the total number of products by the number of books
+  // displayed on single page
 
-  for (let i = 1; i <= Math.ceil(props.productsCount / 25); i++) {
+  for (
+    let i = 1;
+    i <= Math.ceil(props.productsCount / props.productsPerPage);
+    i++
+  ) {
     pageNumbers.push(i);
   }
 
+  // variables storing the number of the actual page
+  // and page references to be displayed along it
   const rightSiblings = pageNumbers.filter(
     (number) => number >= props.page && number < props.page + 4
   );
-
   const leftSiblings = pageNumbers.filter(
     (number) => number < props.page && number > props.page - 3
   );
 
   const siblings = [...leftSiblings, ...rightSiblings];
+
   const pageEls = siblings.map((number) => (
     <li
       key={number}

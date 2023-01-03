@@ -1,13 +1,11 @@
 import "./Cart.scss";
 import CartItem from "./CartItem";
-import React, { useRef, useLayoutEffect, useState } from "react";
 import { selectCartItems, selectTotalPrice } from "../../redux/cartSlice";
 import { useAppSelector } from "../../redux/hooks";
 import { Link, useLocation } from "react-router-dom";
-interface ICartProps {
-  closeModal?: () => void;
-}
-function Cart(props: ICartProps) {
+import Button from "../Button/Button";
+
+function Cart() {
   const books = useAppSelector(selectCartItems);
   const totalPrice = useAppSelector(selectTotalPrice);
 
@@ -29,7 +27,7 @@ function Cart(props: ICartProps) {
           Total: <span className="cart__price-total">{totalPrice} PLN</span>
         </p>
         <Link to="/checkout">
-          <button className="cart__btn">To Checkout</button>
+          <Button className="cart__btn">To Checkout</Button>
         </Link>
       </div>
     </div>

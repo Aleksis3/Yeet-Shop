@@ -18,6 +18,12 @@
     margin-top: 1rem;
   }
 
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
   &__stars {
     background-color: transparent;
     border: none;
@@ -26,10 +32,4 @@
     cursor: pointer;
     color: yellow;
   }
-}
-
-.a {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
 }

@@ -6,9 +6,10 @@ import StarRating from "./StarRating";
 
 interface IProps {
   bookId: string;
+  closeForm: () => void;
 }
 
-function ReviewForm({ bookId }: IProps) {
+function ReviewForm({ bookId, closeForm }: IProps) {
   const [textInput, setTextInput] = useState("");
   const [score, setScore] = useState(0);
   const dispatch = useAppDispatch();
@@ -16,13 +17,14 @@ function ReviewForm({ bookId }: IProps) {
   const submitForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
     dispatch(addReview({ bookId, content: textInput, score }));
+    closeForm();
   };
 
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextInput(e.currentTarget.value);
   };
 
-  const getScoreInput = (score: number) => {
+  const handleScoreInput = (score: number) => {
     setScore(score);
   };
 
@@ -30,13 +32,13 @@ function ReviewForm({ bookId }: IProps) {
     <form className="review-form" onSubmit={(e) => submitForm(e)}>
       <div className="review-form__input-wrapper">
         <p>Your rating:</p>
-        <StarRating getScoreInput={getScoreInput} />
+        <StarRating getScoreInput={handleScoreInput} />
       </div>
       <div className="review-form__input-wrapper">
         <label htmlFor="review-form__details">Details:</label>
         <textarea
           className="review-form__content"
-          onChange={(e) => handleTextChange(e)}
+          onChange={(e) => handleTextInput(e)}
           value={textInput}
           id="review-form__details"
         ></textarea>

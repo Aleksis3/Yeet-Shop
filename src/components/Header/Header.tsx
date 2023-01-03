@@ -35,7 +35,7 @@ function Header() {
       )}
       {showModal && modalContent === "cart" && (
         <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
-          <Cart closeModal={() => setShowModal(false)} />
+          <Cart />
         </Modal>
       )}
 

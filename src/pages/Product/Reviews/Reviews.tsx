@@ -8,38 +8,46 @@ import { db } from "../../../firebase/firebase";
 import { selectReviews } from "../../../redux/reviewSlice";
 import { fetchReviews } from "../../../redux/reviewSlice";
 import Button from "../../../components/Button/Button";
-import { selectUserId } from "../../../redux/authSlice";
+import { selectUserLogin } from "../../../redux/authSlice";
 interface IProps {
   bookId: string;
 }
 
 function Reviews(props: IProps) {
   const [showForm, setShowForm] = useState(false);
-  const user = useAppSelector(selectUserId);
+  const [alreadyPosted, setAlreadyPosted] = useState(false);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUserLogin);
+
+  // give access to form for adding a review
+  // only to logged in users
   const handleToggleForm = () => {
     if (user) {
-      setShowForm((prev) => !prev);
+      if (alreadyPosted) {
+        alert("Sorry, only one review per user!");
+      } else {
+        setShowForm((prev) => !prev);
+      }
     } else {
       alert("You must be logged in!");
     }
   };
 
-  const dispatch = useAppDispatch();
-  const collectionRef = collection(db, "books", "reviews", `${props.bookId}`);
-
+  // fetch reviews for the current book
   useEffect(() => {
     const fetchData = async () => {
+      const reviewsRef = collection(db, "books", "reviews", `${props.bookId}`);
       try {
-        onSnapshot(collectionRef, (snapshot: any) => {
+        onSnapshot(reviewsRef, (snapshot: any) => {
           const querySnapshot = snapshot.docs;
           const reviewData = [] as any;
           querySnapshot.forEach((doc: any) => {
-            // doc.data().date = doc.data().date.toDate();
             const data = doc.data();
-            data.date = "f";
+            if (data.author === user) {
+              setAlreadyPosted(true);
+            }
             reviewData.push(data);
           });
-
           dispatch(fetchReviews(reviewData));
         });
       } catch (e) {
@@ -58,9 +66,12 @@ function Reviews(props: IProps) {
   const reviewEls = reviews.map((review) => (
     <Review
       author={review.author}
+      date={review.date}
       score={review.score}
       content={review.content}
-      bookId="f"
+      id={review.id}
+      key={review.id}
+      bookId={review.bookId}
     />
   ));
 
@@ -78,9 +89,25 @@ function Reviews(props: IProps) {
             {showForm ? "Close" : "Leave a rating!"}
           </Button>
         </div>
-        {showForm && <ReviewForm bookId={props.bookId} />}
+        {showForm && (
+          <ReviewForm
+            bookId={props.bookId}
+            closeForm={() => setShowForm(false)}
+          />
+        )}
       </div>
-      <div>{reviewEls}</div>
+      <div>
+        {reviewEls}
+        <Review
+          author="author"
+          score={4}
+          content={
+            "hardcoded review example says lorem and gives this book solid 3/5"
+          }
+          bookId={"ff"}
+          date={{ seconds: 30, nanoseconds: 33 }}
+        />
+      </div>
     </div>
   );
 }

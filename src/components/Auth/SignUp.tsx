@@ -20,6 +20,17 @@ function SignUp(props: ISignUp) {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUserId);
 
+  // gather the user's data into a single object
+
+  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput((prevUserInput) => ({
+      ...prevUserInput,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  // make API call for registering the user if the given
+  // passwords match
   const handleRegister = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -31,13 +42,7 @@ function SignUp(props: ISignUp) {
     }
   };
 
-  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput((prevUserInput) => ({
-      ...prevUserInput,
-      [e.target.id]: e.target.value,
-    }));
-  };
-
+  // close the component if the user has signed up successfully
   if (user) {
     props.handleClose();
   }
