@@ -1,22 +1,13 @@
-import Cart from "../../components/Cart/Cart";
-import {
-  cleanCart,
-  selectCartItems,
-  selectTotalPrice,
-} from "../../redux/cartSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { selectCartItems, selectTotalPrice } from "../../redux/cartSlice";
+import { useAppSelector } from "../../redux/hooks";
 import CheckoutItem from "./CheckoutItem";
 import "./Checkout.scss";
 
 import CheckoutForm from "./CheckoutForm";
-import { selectUserId } from "../../redux/authSlice";
-import { redirect, useNavigate } from "react-router-dom";
 
 function Checkout() {
   const cartItems = useAppSelector(selectCartItems);
   const totalPrice = useAppSelector(selectTotalPrice);
-  const user = useAppSelector(selectUserId);
-  const navigate = useNavigate();
 
   const productEls = cartItems.map((item) => {
     return (
@@ -28,10 +19,6 @@ function Checkout() {
       />
     );
   });
-
-  // if (!user) {
-  //   navigate("/");
-  // }
 
   return (
     <div className="checkout">

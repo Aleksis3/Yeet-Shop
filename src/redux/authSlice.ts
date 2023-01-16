@@ -11,7 +11,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 // Define a type for the slice state
 export interface authState {
   email: string;
-  uid: string;
+  uid: string | null;
   login: string;
 }
 
@@ -21,17 +21,22 @@ interface userData {
   login?: string;
 }
 
-const initialState = <any>{ uid: null, login: null };
+const initialState: authState = {
+  uid: null,
+  login: "",
+  email: "",
+};
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(signup.fulfilled, (state, action) => {
-      return action.payload;
+      return action.payload as authState;
     });
     builder.addCase(signin.fulfilled, (state, action) => {
-      return action.payload;
+      return action.payload as authState;
     });
     builder.addCase(logout.fulfilled, (state, action) => {
       return initialState;
@@ -84,7 +89,7 @@ export const signin = createAsyncThunk(
       // from his personal firebase profile
       .then(async (uid) => {
         const userDetails = await getDoc(doc(db, "users", uid));
-        return userDetails.data();
+        return userDetails.data() as authState;
       })
       .catch((error) => {
         alert(error.message);

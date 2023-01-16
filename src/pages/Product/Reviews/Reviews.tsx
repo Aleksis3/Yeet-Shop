@@ -43,7 +43,7 @@ function Reviews(props: IProps) {
           const reviewData = [] as any;
           querySnapshot.forEach((doc: any) => {
             const data = doc.data();
-            if (data.author == user) {
+            if (data.author === user) {
               setAlreadyPosted(true);
             }
             reviewData.push(data);
@@ -59,7 +59,7 @@ function Reviews(props: IProps) {
       }
     };
     fetchData();
-  }, [showForm]);
+  }, [showForm, dispatch, user, props.bookId]);
 
   const reviews = useAppSelector(selectReviews);
 

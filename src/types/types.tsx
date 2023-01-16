@@ -24,8 +24,8 @@ export interface IProductsResponse {
 }
 
 export interface IBook {
-  id: number;
-  title: string;
+  id?: number;
+  title?: string;
   description?: string;
   img?: string;
   price?: number;

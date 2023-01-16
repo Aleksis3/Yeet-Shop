@@ -55,17 +55,19 @@ export const addWithThunk = createAsyncThunk(
     const { title, id, img, price } = book;
     const state = getState() as RootState;
     const user = state.auth.uid;
-    await setDoc(
-      doc(db, "test", user, "cart", id),
-      {
-        id,
-        title,
-        img,
-        price,
-        quantity: increment(1),
-      },
-      { merge: true }
-    );
+    if (user) {
+      await setDoc(
+        doc(db, "test", user, "cart", id),
+        {
+          id,
+          title,
+          img,
+          price,
+          quantity: increment(1),
+        },
+        { merge: true }
+      );
+    }
   }
 );
 

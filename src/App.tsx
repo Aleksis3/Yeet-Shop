@@ -23,10 +23,10 @@ function App() {
     const cartRef = collection(db, "test", `${user}`, "cart");
     const fetchData = async () => {
       try {
-        onSnapshot(cartRef, (snapshot: any) => {
+        onSnapshot(cartRef, (snapshot) => {
           const querySnapshot = snapshot.docs;
           const bookData: IBook[] = [];
-          querySnapshot.forEach((doc: any) => bookData.push(doc.data()));
+          querySnapshot.forEach((doc) => bookData.push(doc.data()));
           dispatch(fetchCart(bookData));
         });
       } catch (e) {
@@ -38,7 +38,7 @@ function App() {
       }
     };
     fetchData();
-  }, [user]);
+  }, [user, dispatch]);
 
   return (
     <div className="App">

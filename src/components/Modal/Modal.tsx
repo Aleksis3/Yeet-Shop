@@ -1,11 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./Modal.scss";
-import { closeModal } from "../../redux/modalSlice";
 import { useLocation } from "react-router-dom";
-import { selectIsModal } from "../../redux/modalSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-
 type ModalProps = {
   children: React.ReactNode;
   showModal: boolean;
@@ -13,10 +9,6 @@ type ModalProps = {
 };
 
 function Modal(props: ModalProps) {
-  const isOpen = useAppSelector(selectIsModal);
-  const dispatch = useAppDispatch();
-  const close = dispatch(closeModal);
-
   //  Code for closing the modal in the case user
   // decides to click the book's url
   const url = useLocation();
