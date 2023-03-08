@@ -1,42 +1,38 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { selectUserId, signup } from "../../redux/authSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Button from "../Button/Button";
 
 import "./authForm.scss";
 
+interface iFormValues {
+  email: string;
+  login: string;
+  password: string;
+  password2: string;
+}
+
 interface ISignUp {
   handleClose: () => void;
 }
 
 function SignUp(props: ISignUp) {
-  const [userInput, setUserInput] = useState({
-    login: "",
-    email: "",
-    password: "",
-    "password-confirm": "",
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<iFormValues>();
 
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUserId);
 
-  // gather the user's data into a single object
-
-  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput((prevUserInput) => ({
-      ...prevUserInput,
-      [e.target.id]: e.target.value,
-    }));
-  };
-
   // make API call for registering the user if the given
   // passwords match
-  const handleRegister = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
-    if (userInput.password === userInput["password-confirm"]) {
-      dispatch(signup({ ...userInput }));
+  const handleRegister = (data: iFormValues) => {
+    console.log(data);
+    if (data.password === data["password2"]) {
+      dispatch(signup({ ...data }));
     } else {
       alert("Passwords must match!");
     }
@@ -50,7 +46,7 @@ function SignUp(props: ISignUp) {
   return (
     <div>
       <h1 className="auth__form-title">Create new account</h1>
-      <form className="auth__form" action="">
+      <form className="auth__form" onSubmit={handleSubmit(handleRegister)}>
         <div className="auth__formEl-wrapper">
           <label htmlFor="login" className="auth__form-label">
             Login
@@ -58,23 +54,31 @@ function SignUp(props: ISignUp) {
           <input
             id="login"
             type="text"
-            value={userInput.login}
-            onChange={inputChangeHandler}
-            required
+            {...register("login", {
+              required: "Field is required",
+            })}
+            name="login"
           />
         </div>
+        <span className="auth__form__error">{errors?.login?.message}</span>
         <div className="auth__formEl-wrapper">
           <label htmlFor="email" className="auth__form-label">
             Email
           </label>
           <input
             id="email"
-            type="email"
-            value={userInput.email}
-            onChange={inputChangeHandler}
-            required
+            type="text"
+            {...register("email", {
+              pattern: {
+                value: /^\S+@\S+\.\S+$/,
+                message: "Email is invalid",
+              },
+              required: "Field is required",
+            })}
+            name="email"
           />
         </div>
+        <span className="auth__form__error">{errors?.email?.message}</span>
         <div className="auth__formEl-wrapper">
           <label htmlFor="password" className="auth__form-label">
             Password
@@ -82,24 +86,28 @@ function SignUp(props: ISignUp) {
           <input
             id="password"
             type="password"
-            value={userInput.password}
-            onChange={inputChangeHandler}
-            required
+            {...register("password", {
+              required: "Field is required",
+            })}
+            name="password"
           />
         </div>
+        <span className="auth__form__error">{errors?.password?.message}</span>
         <div className="auth__formEl-wrapper">
           <label htmlFor="password-confirm" className="auth__form-label">
             Confirm Password
           </label>
           <input
-            id="password-confirm"
+            id="password2"
             type="password"
-            value={userInput["password-confirm"]}
-            onChange={inputChangeHandler}
-            required
+            {...register("password2", {
+              required: "Field is required",
+            })}
+            name="password2"
           />
         </div>
-        <Button onClick={(e) => handleRegister(e)}>Submit</Button>
+        <span className="auth__form__error">{errors?.password2?.message}</span>
+        <Button>Submit</Button>
       </form>
     </div>
   );

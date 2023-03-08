@@ -34,7 +34,7 @@ function ProductItem(props: IProductItemProps) {
         })
       );
     } else {
-      alert("You must me logged in!");
+      alert("You must be logged in!");
     }
   };
 

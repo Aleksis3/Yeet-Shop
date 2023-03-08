@@ -2,17 +2,13 @@
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto auto 1fr;
-
   width: 130rem;
   max-width: 100%;
   margin: 4rem auto 0 auto;
-  background-color: #e6dccf;
-
   font-size: 2rem;
-
-  // background-color: rgb(243, 240, 230);
-  // border: 1px #444 solid;
-
+  background-color: #f8f0fc;
+  border: 1px #888 solid;
+  border-radius: 10px;
   &__img-container {
     grid-row: 1/-1;
   }
@@ -59,13 +55,13 @@
   }
 
   &__buy-btn {
+    background-color: #842752 !important;
     width: fit-content;
     padding: 0.6rem;
   }
 
   &__desc-container {
-    background-color: #fff4e6;
-    // grid-row: -1;
+    border-top: 1px #999 solid;
     grid-column: 1/-1;
     width: 100%;
     margin: 0rem 1rem 1rem 0;

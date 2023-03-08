@@ -6,7 +6,7 @@
 .auth__form {
   display: flex;
   font-size: 2rem;
-  gap: 1.3rem;
+
   flex-direction: column;
   align-items: center;
 
@@ -23,8 +23,22 @@
   }
 
   input {
-    padding: 0.2rem 0.4rem;
+    padding: 0.8rem 0.4rem;
     width: 20rem;
     max-width: 100%;
+    border: 2px purple solid;
   }
+
+  &__error {
+    height: 2rem;
+    margin: 0.55rem;
+    font-size: 1.5rem;
+    color: red;
+  }
+}
+
+.a {
+  background-color: black !important;
+  padding: 10000px;
+  color: black;
 }

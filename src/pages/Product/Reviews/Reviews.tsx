@@ -102,7 +102,7 @@ function Reviews(props: IProps) {
           author="author"
           score={4}
           content={
-            "hardcoded review example says lorem and gives this book solid 3/5"
+            "hardcoded review example says lorem and gives this book solid 4/5"
           }
           bookId={"ff"}
           date={{ seconds: 30, nanoseconds: 33 }}

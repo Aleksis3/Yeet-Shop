@@ -1,32 +1,31 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { selectUserId, signin } from "../../redux/authSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Button from "../Button/Button";
 
 import "./authForm.scss";
 
+interface iFormValues {
+  email: string;
+  password: string;
+}
+
 interface ILogIn {
   handleClose: () => void;
 }
 
 function LogIn(props: ILogIn) {
-  const [userInput, setUserInput] = useState({
-    email: "",
-    password: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<iFormValues>();
+
   const user = useAppSelector(selectUserId);
   const dispatch = useAppDispatch();
 
-  const handleLogIn = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    dispatch(signin({ ...userInput }));
-  };
-
-  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput((prevUserInput) => ({
-      ...prevUserInput,
-      [e.target.id]: e.target.value,
-    }));
+  const handleLogIn = (data: iFormValues) => {
+    dispatch(signin({ ...data }));
   };
 
   if (user) {
@@ -36,19 +35,24 @@ function LogIn(props: ILogIn) {
   return (
     <div>
       <h1 className="auth__form-title">Sign In</h1>
-      <form className="auth__form" action="">
+      <form onSubmit={handleSubmit(handleLogIn)} className="auth__form">
         <div className="auth__formEl-wrapper">
           <label className="auth__form-label" htmlFor="email">
             Email
           </label>
           <input
             id="email"
-            type="email"
-            value={userInput.email}
-            onChange={inputChangeHandler}
-            required
+            {...register("email", {
+              pattern: {
+                value: /^\S+@\S+\.\S+$/,
+                message: "Email is invalid",
+              },
+              required: "Email is required",
+            })}
+            name="email"
           />
         </div>
+        <span className="auth__form__error">{errors?.email?.message}</span>
         <div className="auth__formEl-wrapper">
           <label className="auth__form-label" htmlFor="password">
             Password
@@ -56,14 +60,12 @@ function LogIn(props: ILogIn) {
           <input
             id="password"
             type="password"
-            value={userInput.password}
-            onChange={inputChangeHandler}
-            required
+            {...register("password", { required: "Password is required" })}
+            name="password"
           />
         </div>
-        <Button className="auth__btn" onClick={(e) => handleLogIn(e)}>
-          Submit
-        </Button>
+        <span className="auth__form__error">{errors?.password?.message}</span>
+        <Button className="auth__btn">Submit</Button>
       </form>
     </div>
   );
