@@ -3,16 +3,9 @@ import { Link } from "react-router-dom";
 import { addWithThunk } from "../../../../redux/cartSlice";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { selectUserId } from "../../../../redux/authSlice";
+import { IBook } from "../../../../types/types";
 
-export interface IProductItemProps {
-  id: string;
-  title: string;
-  description?: string;
-  img?: string;
-  price?: number;
-}
-
-function ProductItem(props: IProductItemProps) {
+function ProductItem(props: IBook) {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUserId);
 

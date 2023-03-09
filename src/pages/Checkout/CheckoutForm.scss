@@ -16,12 +16,13 @@
 
     input {
       border-radius: 2px;
-      padding: 0.2rem;
+      padding: 0.4rem;
     }
   }
 
   &__button {
-    background-color: #ffd8a8;
+    background-color: purple;
+    color: white;
     border: 1px #333 solid;
     font-weight: bold;
     margin-top: 1rem;

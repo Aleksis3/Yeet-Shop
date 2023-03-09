@@ -25,38 +25,37 @@ function Header() {
     setShowModal(true);
   };
 
+  const buttons = user ? (
+    <div className="header__btns">
+      <Button onClick={() => openModal("cart")}>Cart ({cartItemsCount})</Button>
+      <Button className="header__btn" onClick={() => dispatch(logout())}>
+        Log out
+      </Button>
+    </div>
+  ) : (
+    <div className="header__btns">
+      <Button className="header__btn" onClick={() => openModal("signup")}>
+        Register
+      </Button>
+      <Button onClick={() => openModal("login")}>Log In</Button>
+    </div>
+  );
+
   return (
     <header className="header">
       <Link className="header__logo" to="/">
         <p>YeetShop</p>
       </Link>
-      {user && (
-        <Button onClick={() => openModal("cart")}>
-          Cart ({cartItemsCount})
-        </Button>
-      )}
+      {buttons}
       {showModal && modalContent === "cart" && (
         <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
           <Cart />
         </Modal>
       )}
-
-      {!user ? (
-        <Button onClick={() => openModal("login")}>Log In</Button>
-      ) : (
-        <Button className="header__btn" onClick={() => dispatch(logout())}>
-          Log out
-        </Button>
-      )}
       {showModal && modalContent === "login" && (
         <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
           <LogIn handleClose={() => setShowModal(false)} />
         </Modal>
-      )}
-      {!user && (
-        <Button className="header__btn" onClick={() => openModal("signup")}>
-          Register
-        </Button>
       )}
       {showModal && modalContent === "signup" && (
         <Modal showModal={showModal} closeModal={() => setShowModal(false)}>

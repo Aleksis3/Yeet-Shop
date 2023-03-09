@@ -26,7 +26,7 @@ function App() {
         onSnapshot(cartRef, (snapshot) => {
           const querySnapshot = snapshot.docs;
           const bookData: IBook[] = [];
-          querySnapshot.forEach((doc) => bookData.push(doc.data()));
+          querySnapshot.forEach((doc) => bookData.push(doc.data() as IBook));
           dispatch(fetchCart(bookData));
         });
       } catch (e) {
@@ -44,15 +44,17 @@ function App() {
     <div className="App">
       <Header />
       <Navbar />
-      <Routes>
-        {["/", "/category/:category/", "/category/:category/:page", "*"].map(
-          (path, index) => (
-            <Route path={path} key={index} element={<Main />} />
-          )
-        )}
-        <Route path="/product/:id" element={<Product />} />
-        <Route path="/checkout" element={<Checkout />} />
-      </Routes>
+      <main>
+        <Routes>
+          {["/", "/category/:category/", "/category/:category/:page", "*"].map(
+            (path, index) => (
+              <Route path={path} key={index} element={<Main />} />
+            )
+          )}
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/checkout" element={<Checkout />} />
+        </Routes>
+      </main>
       <Footer />
     </div>
   );

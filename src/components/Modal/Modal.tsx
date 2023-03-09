@@ -10,7 +10,7 @@ type ModalProps = {
 
 function Modal(props: ModalProps) {
   //  Code for closing the modal in the case user
-  // decides to click the book's url
+  // decides to click the book's url from cart
   const url = useLocation();
   const ref = useRef(false);
 

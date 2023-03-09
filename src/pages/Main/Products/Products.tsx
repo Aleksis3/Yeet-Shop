@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Spinner from "../../../components/Spinner/Spinner";
 import { IProductsResponse } from "../../../types/types";
 import Pagination from "./Pagination";
 import ProductItem from "./Product/ProductItem";
@@ -12,6 +13,8 @@ interface IProductsProps {
 }
 
 function Products(props: IProductsProps) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<null | String>();
   const [products, setProducts] = useState<IProductsResponse[]>([]);
   const [productsCount, setProductsCount] = useState(0);
   const [page, setPage] = useState((props.page && parseInt(props.page)) || 1);
@@ -68,28 +71,25 @@ function Products(props: IProductsProps) {
           throw err;
         }
         const json = await data.json();
-
         // solution for very rare cases in which the returned API
         // response ignores the query and contains results which are
         // neither ebooks nor for sale (possibly just the case of preorders)
-
         const filteredJson = json.items.filter(
           (book: IProductsResponse) => book.saleInfo.isEbook !== false
         );
-
         setProducts(filteredJson);
-
         // the current count may vary a little
         // from the one stated in API response
         // but the difference is almost negligible
-
         setProductsCount(json.totalItems);
       } catch (e) {
         if (e instanceof Error) {
-          alert(e.message);
+          setError(e.message);
         } else {
-          alert("Oops, there was some error!");
+          setError("Oops, there was some error!");
         }
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();
@@ -109,10 +109,19 @@ function Products(props: IProductsProps) {
     );
   });
 
+  let content;
+  if (isLoading) {
+    content = <Spinner />;
+  } else if (error) {
+    content = <p>{error}</p>;
+  } else {
+    content = productEls;
+  }
+
   return (
     <section className="products">
       <h2 className="products__heading">{`${props.title} (${productsCount})`}</h2>
-      <div className="products__grid">{productEls}</div>
+      <div className="products__grid">{content}</div>
       <Pagination
         page={page}
         productsCount={productsCount}

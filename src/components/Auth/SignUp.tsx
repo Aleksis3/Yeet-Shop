@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { selectUserId, signup } from "../../redux/authSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -21,6 +20,7 @@ function SignUp(props: ISignUp) {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<iFormValues>();
 
@@ -34,7 +34,10 @@ function SignUp(props: ISignUp) {
     if (data.password === data["password2"]) {
       dispatch(signup({ ...data }));
     } else {
-      alert("Passwords must match!");
+      setError("password", {
+        type: "mismatch",
+        message: "Passwords do not match!",
+      });
     }
   };
 

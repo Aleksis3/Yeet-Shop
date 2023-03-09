@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import Spinner from "../../components/Spinner/Spinner";
 import { selectUserId } from "../../redux/authSlice";
 import { addWithThunk } from "../../redux/cartSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -9,18 +10,21 @@ import "./Product.scss";
 import Reviews from "./Reviews/Reviews";
 
 function Product() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<String | null>();
   let { id } = useParams();
   const [product, setProduct] = useState<IProductsResponse>();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUserId);
+
   const handleAdd = () => {
-    if (user) {
+    if (user && product && id) {
       dispatch(
         addWithThunk({
           id,
-          title: product?.volumeInfo.title,
-          price: product?.saleInfo.listPrice.amount,
-          img: product?.volumeInfo.imageLinks.thumbnail,
+          title: product.volumeInfo.title,
+          price: product.saleInfo.listPrice.amount,
+          img: product.volumeInfo.imageLinks.thumbnail,
         })
       );
     } else {
@@ -45,14 +49,24 @@ function Product() {
         if (e instanceof Error) {
           eMessage = e.message;
         }
-        alert(eMessage);
+        setError(eMessage);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
   }, [id]);
 
+  if (loading) {
+    return <Spinner />;
+  }
+
+  if (error) {
+    return <p>Error...</p>;
+  }
+
   const categories = product?.volumeInfo?.categories
-    ? product?.volumeInfo?.categories.splice(0, 3).map((category, i) => (
+    ? product.volumeInfo?.categories.splice(0, 3).map((category, i) => (
         <p key={i}>
           {category},<br />
         </p>
@@ -85,7 +99,7 @@ function Product() {
           {categories}
           <div className="product__buy-container">
             <p>
-              Price: <b>{product?.saleInfo.listPrice.amount} PLN</b>
+              Price: <b>{product!.saleInfo.listPrice.amount} PLN</b>
             </p>
             <Button className="product__buy-btn" onClick={handleAdd}>
               Add to cart

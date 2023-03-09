@@ -6,9 +6,10 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
 import { selectReviews } from "../../../redux/reviewSlice";
-import { fetchReviews } from "../../../redux/reviewSlice";
+import { saveReviews } from "../../../redux/reviewSlice";
 import Button from "../../../components/Button/Button";
 import { selectUserLogin } from "../../../redux/authSlice";
+import Spinner from "../../../components/Spinner/Spinner";
 interface IProps {
   bookId: string;
 }
@@ -18,6 +19,8 @@ function Reviews(props: IProps) {
   const [alreadyPosted, setAlreadyPosted] = useState(false);
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUserLogin);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<null | string>();
 
   // give access to form for adding a review
   // only to logged in users
@@ -48,14 +51,16 @@ function Reviews(props: IProps) {
             }
             reviewData.push(data);
           });
-          dispatch(fetchReviews(reviewData));
+          dispatch(saveReviews(reviewData));
         });
       } catch (e) {
         if (e instanceof Error) {
-          alert(e.message);
+          setError(e.message);
         } else {
           console.log("Unexpected error", e);
         }
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();
@@ -74,6 +79,15 @@ function Reviews(props: IProps) {
       bookId={review.bookId}
     />
   ));
+
+  let content;
+  if (isLoading) {
+    content = <Spinner />;
+  } else if (error) {
+    content = <p>Sorry :c, an error occured: {error}</p>;
+  } else {
+    content = reviewEls;
+  }
 
   return (
     <div className="reviews">
@@ -97,7 +111,7 @@ function Reviews(props: IProps) {
         )}
       </div>
       <div>
-        {reviewEls}
+        {content}
         <Review
           author="author"
           score={4}

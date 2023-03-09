@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { RootState } from "./store";
+import { IBook } from "../types/types";
 
 interface CartState {
   items: {
@@ -40,18 +41,16 @@ export const cartSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(addWithThunk.rejected, (state, action) => {
       alert(action.error.message);
-      console.log(action.error.message);
     });
     builder.addCase(removeWithThunk.rejected, (state, action) => {
       alert(action.error.message);
-      console.log(action.error.message);
     });
   },
 });
 
 export const addWithThunk = createAsyncThunk(
   "auth/addWithThunk",
-  async (book: any, { getState }) => {
+  async (book: IBook, { getState }) => {
     const { title, id, img, price } = book;
     const state = getState() as RootState;
     const user = state.auth.uid;

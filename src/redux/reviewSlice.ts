@@ -27,7 +27,7 @@ export const reviewSlice = createSlice({
   name: "review",
   initialState,
   reducers: {
-    fetchReviews: (state, action) => {
+    saveReviews: (state, action) => {
       state.reviews = action.payload;
     },
   },
@@ -59,7 +59,7 @@ export const addReview = createAsyncThunk(
   }
 );
 
-export const { fetchReviews } = reviewSlice.actions;
+export const { saveReviews } = reviewSlice.actions;
 
 export const selectReviews = (state: RootState) => state.review.reviews;
 
