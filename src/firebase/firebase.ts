@@ -3,8 +3,10 @@ import { getAuth } from "firebase/auth";
 
 import { getFirestore } from "firebase/firestore";
 
+const apiKey: string = process.env.REACT_APP_API_KEY as string;
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBxOw6xQPo_YuuMtUIL3u4jHN7jXs4rCpc",
+  apiKey,
   authDomain: "yeetshop-e444b.firebaseapp.com",
   projectId: "yeetshop-e444b",
   storageBucket: "yeetshop-e444b.appspot.com",
